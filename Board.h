@@ -25,8 +25,6 @@ public:
     void undo();
     void redo();
 
-    const uint16_t playerNow() const;
-
 private:
     // A "2 dim vector" that store chess's unique ID
     // Size = 9 * 10   (Definition in .Cpp)
