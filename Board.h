@@ -5,19 +5,27 @@
 
 using namespace std;
 
-typedef vector<vector<uint32_t>> Coord;
+typedef struct
+{
+    uint32_t x;
+    uint32_t y;
+} Coord;
 
 class ChessBoard
 {
 public:
-    ChessBoard(const string &);
-    const void saveFile();
-    const void loadFile();
-    const void drawVoard();
-    const uint32_t getChessID(const uint32_t &, const uint32_t &);
+    ChessBoard(const string &fileName);
+    const void saveFile(const string &fileName);
+    const void loadFile(const string &fileName);
+
+    const uint32_t getChessID(const Coord &location);
+    const void drawBoard();
+
     const bool isCheckmate();
     const bool isCheck();
 
 private:
-    // Coord content(9, vector<uint32_t>(10, 0));
+    // 9 * 10
+    // Definition in .Cpp
+    vector<Coord> content;
 };
