@@ -28,6 +28,9 @@ public:
     const bool isCheckmate();
     const bool isCheck();
 
+    void recovery();
+    void unrecovery();
+
 private:
     // A "2 dim vector" that store chess's unique ID
     // Size = 9 * 10   (Definition in .Cpp)
