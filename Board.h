@@ -2,22 +2,34 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include "Chess.h"
 
 using namespace std;
 
-typedef vector<vector<uint32_t>> Coord;
+typedef vector<vector<uint32_t>> BattleArea;
+typedef struct
+{
+    uint32_t x;
+    uint32_t y;
+} Coord;
 
 class ChessBoard
 {
 public:
-    ChessBoard(const string &);
-    const void saveFile();
-    const void loadFile();
-    const void drawVoard();
-    const uint32_t getChessID(const uint32_t &, const uint32_t &);
-    const bool isCheckmate();
-    const bool isCheck();
+    ChessBoard(const string &fileName);
+
+    const uint32_t getChessID(const Coord &location) const;
+    const string getChessName(const uint32_t &chessID) const;
+    void drawBoard(const BattleArea &board) const;
+
+    void undo();
+    void redo();
 
 private:
-    // Coord content(9, vector<uint32_t>(10, 0));
+    // A "2 dim vector" that store chess's unique ID
+    // Size = 9 * 10   (Definition in .Cpp)
+    BattleArea area;
+
+    // Chess list
+    vector<Chess> chess;
 };
