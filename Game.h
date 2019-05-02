@@ -1,8 +1,5 @@
 #pragma once
-#include <cstdint>
-#include <string>
 #include "Board.h"
-#include "Chess.h"
 
 using namespace std;
 
