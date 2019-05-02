@@ -5,6 +5,9 @@
 
 using namespace std;
 
+typedef vector<vector<uint32_t>> BattleArea;
+typedef vector<BattleArea> BattleHistory;
+typedef vector<string> BattleStatus;
 typedef struct
 {
     uint32_t x;
@@ -19,13 +22,17 @@ public:
     const void loadFile(const string &fileName);
 
     const uint32_t getChessID(const Coord &location);
+    const string getChessName(const uint32_t &chessID);
     const void drawBoard();
 
     const bool isCheckmate();
     const bool isCheck();
 
 private:
-    // 9 * 10
-    // Definition in .Cpp
-    vector<Coord> content;
+    // A "2 dim vector" that store chess's unique ID
+    // Size = 9 * 10   (Definition in .Cpp)
+    BattleArea area;
+
+    // Store battle status
+    BattleHistory history;
 };
