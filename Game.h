@@ -1,4 +1,7 @@
 #pragma once
+#define PLAYER_RED 1
+#define PLAYER_BLACK 0
+
 #include "Board.h"
 
 using namespace std;
@@ -12,14 +15,14 @@ public:
     Game();
     Game(const string &fileName);
 
-    const void saveFile(const string &fileName) const;
-    const void loadFile(const string &fileName);
+    void saveFile(const string &fileName) const;
+    void loadFile(const string &fileName);
 
     const bool isCheckmate() const;
     const bool isCheck() const;
 
-    const void controll();
-    const void writeReport();
+    void controll();
+    void writeReport();
     const uint16_t playerNow() const;
 
 private:
