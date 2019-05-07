@@ -32,7 +32,7 @@ void drawMainMenu(int index = 0) {
 	SetConsoleTextAttribute(hConsole, MenuLineColor);
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
-	cout << "¢z¡Ð¡Ð¡Ð¡Ð¡Ð¡Ð¢{\n";
+	cout << "ùÝùùùùùùùùùùùùùùùùùùùùùùùùùß\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
 	cout << "¡U¡@";
@@ -75,18 +75,28 @@ void drawMainMenu(int index = 0) {
 }
 
 void moveMenu(int keydown) {
-	if (keydown == 38 || keydown == 40) {
-		if (keydown == 38) {
-			menuPosition--;
-		}
-		if (keydown == 40) {
-			menuPosition++;
-		}
-		if (menuPosition > 2)
-			menuPosition = 0;
-		if (menuPosition < 0)
-			menuPosition = 2;
-		drawMainMenu(menuPosition);
+	if (keydown == 38) {
+		menuPosition--;
+	}
+	if (keydown == 40) {
+		menuPosition++;
+	}
+	if (menuPosition > 2)
+		menuPosition = 0;
+	if (menuPosition < 0)
+		menuPosition = 2;
+	drawMainMenu(menuPosition);
+}
+
+void mainMenuAction() {
+	if (menuPosition == 0) {
+		
+	}
+	else if (menuPosition == 1) {
+		
+	}
+	else if (menuPosition == 2) {
+		exit(0);
 	}
 }
 
@@ -103,11 +113,14 @@ DWORD getKey() { // get user keydown
 int main() {
 	initCmdWindow();
 	drawMainMenu();
-
 	while (running) {
 		int keydown = getKey();
 		if (keydown != 0) {
-			moveMenu(keydown);
+			if (keydown == 38 || keydown == 40)
+				moveMenu(keydown);
+			if (keydown == 13) {
+				mainMenuAction();
+			}
 		}
 	}
 	return 0;

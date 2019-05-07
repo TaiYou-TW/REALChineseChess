@@ -1,5 +1,12 @@
 #pragma once
+<<<<<<< Updated upstream
 #include "Chess.h"
+=======
+#include <cstdint>
+#include <string>
+#include <vector>
+//#include "Chess.h"
+>>>>>>> Stashed changes
 
 using namespace std;
 
@@ -23,5 +30,5 @@ private:
     BattleArea area;
 
     // Chess list
-    vector<Chess> chess;
+    //vector<Chess> chess;
 };
