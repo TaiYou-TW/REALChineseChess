@@ -12,6 +12,9 @@
 #define MenuLineColor 9
 #define MenuChoosenColor 240
 #define InitColor 7
+#define UpArrowKey 38
+#define DownArrowKey 40
+#define EnterKey 13
 
 using namespace std;
 namespace fs = std::experimental::filesystem;
@@ -21,6 +24,11 @@ HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
 bool running = true;
 string path = "./save";
 int menuPosition = 0;
+
+void init() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+}
 
 void delay(int time) {
 	std::this_thread::sleep_for(std::chrono::milliseconds(time));
@@ -53,44 +61,44 @@ void drawMainMenu(int index = 0) {
 	SetConsoleTextAttribute(hConsole, MenuLineColor);
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
-	cout << "ùÝùùùùùùùùùùùùùùùùùùùùùùùùùß\n";
+	cout << "¢z¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢{\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
-	cout << "¡U¡@";
+	cout << "¢x¡@";
 	if (index == 0)
 		SetConsoleTextAttribute(hConsole, MenuChoosenColor);
 	cout << "¶}·s¹CÀ¸";
 	SetConsoleTextAttribute(hConsole, MenuLineColor);
-	cout << " ¢x\n";
+	cout << "¡@¢x\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
-	cout << "¢u¡Ð¡Ð¡Ð¡Ð¡Ð¡Ð¢t\n";
+	cout << "¢u¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢t\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
 	
-	cout << "¡U¡@";
+	cout << "¢x¡@";
 	if (index == 1)
 		SetConsoleTextAttribute(hConsole, MenuChoosenColor);
 	cout << "Åª¨ú¦sÀÉ";
 	SetConsoleTextAttribute(hConsole, MenuLineColor);
-	cout << " ¡U\n";
+	cout << "¡@¢x\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@"; 
-	cout << "¢u¡Ð¡Ð¡Ð¡Ð¡Ð¡Ð¢t\n";
+	cout << "¢u¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢t\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@"; 
 
 
-	cout << "¡U¡@";
+	cout << "¢x¡@";
 	if (index == 2)
 		SetConsoleTextAttribute(hConsole, MenuChoosenColor);
 	cout << "Â÷¶}¹CÀ¸";
 	SetConsoleTextAttribute(hConsole, MenuLineColor);
-	cout << " ¡U\n";
+	cout << "¡@¢x\n";
 
 	for (int i = 0; i < space; i++)
 		cout << "¡@"; 
-	cout << "¢|¡Ð¡Ð¡Ð¡Ð¡Ð¡Ð¢}\n";
+	cout << "¢|¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢}\n";
 	for (int i = 0; i < 15; i++)
 		cout << "\n";
 }
@@ -131,19 +139,12 @@ void mainMenuAction() {
 		}
 
 		system("cls");
-		cout << "¸ü¤J \"" << filename[cmd] << "\" ¤¤ ...... " << endl;
+		cout << "¸ü¤J \"" << filename[cmd] << "\" ¤¤ ...... \n";
 		delay(3000);
 		//Game load(filename[cmd]);
 	}
 	else if (menuPosition == 2) {
 		exit(0);
-	}
-}
-
-void showColor() {
-	for (int i = 1; i < 255; i++) {
-		SetConsoleTextAttribute(hConsole, i);
-		cout << "test" << endl;
 	}
 }
 
@@ -158,15 +159,19 @@ DWORD getKey() { // get user keydown
 }
 
 int main() {
+	init();
 	initCmdWindow();
-	//showColor();
-	drawMainMenu();
+	cout << "ùÝùùùùùùùùùùùùùß\nùø¡@¶Ù¡@ùø\nùàùùùùùùùùùùùùùâ\nùø¡@¢ç¡@ùø\nùãùùùùùùùùùùùùùå\n";
+	//drawMainMenu();
+	
 	while (running) {
 		int keydown = getKey();
+
 		if (keydown != 0) {
-			if (keydown == 38 || keydown == 40)
+			if (keydown == UpArrowKey || keydown == DownArrowKey) {
 				moveMenu(keydown);
-			if (keydown == 13) {
+			}
+			else if (keydown == EnterKey) {
 				mainMenuAction();
 			}
 		}
