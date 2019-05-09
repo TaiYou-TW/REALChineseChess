@@ -8,26 +8,44 @@
 #include "Game.h"
 
 #define CmdWidth 1200
-#define CmdHeight 700
-#define MenuLineColor 9
-#define MenuChoosenColor 240
+#define CmdHeight 650
+#define MainMenuLineColor 9
+#define MainMenuChoosenColor 240
 #define InitColor 7
 #define UpArrowKey 38
 #define DownArrowKey 40
 #define EnterKey 13
+#define MainMenuTextPositionX 67
+#define MainMenuTextPositionY 16
+#define WindowBottomY 37
 
 using namespace std;
 namespace fs = std::experimental::filesystem;
 
+const string path = "./save";
+const string mainMenuText[3] = { "¶}·s¹CÀ¸", "Åª¨ú¦sÀÉ", "Â÷¶}¹CÀ¸" };
+
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
 bool running = true;
-string path = "./save";
-int menuPosition = 0;
+
+int mainMenuPosition = 0;
 
 void init() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
+}
+
+void GoToXY(int column, int line)
+{
+	COORD coord;
+	coord.X = column;
+	coord.Y = line;
+
+	if (!SetConsoleCursorPosition(hConsole, coord))
+	{
+		cout << "²¾°Ê´å¼Ðerr";
+	}
 }
 
 void delay(int time) {
@@ -54,81 +72,86 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight) { // set cmd wi
 }
 
 void drawMainMenu() {
-	int index = menuPosition;
-	system("CLS");
+	int index = mainMenuPosition;
 	int space = 32;
 	int blank_row = 15;
+
+	system("CLS");
+	SetConsoleTextAttribute(hConsole, MainMenuLineColor);
+
 	for (int i = 0; i < blank_row; i++)
 		cout << "\n";
-	SetConsoleTextAttribute(hConsole, MenuLineColor);
+
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
+
 	cout << "¢z¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢{\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
-	cout << "¢x¡@";
-	if (index == 0)
-		SetConsoleTextAttribute(hConsole, MenuChoosenColor);
-	cout << "¶}·s¹CÀ¸";
-	SetConsoleTextAttribute(hConsole, MenuLineColor);
-	cout << "¡@¢x\n";
+
+	cout << "¢x¡@" << mainMenuText[0] << "¡@¢x\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
+
 	cout << "¢u¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢t\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@";
 	
-	cout << "¢x¡@";
-	if (index == 1)
-		SetConsoleTextAttribute(hConsole, MenuChoosenColor);
-	cout << "Åª¨ú¦sÀÉ";
-	SetConsoleTextAttribute(hConsole, MenuLineColor);
-	cout << "¡@¢x\n";
+	cout << "¢x¡@" << mainMenuText[1] << "¡@¢x\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@"; 
+
 	cout << "¢u¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢t\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@"; 
 
-
-	cout << "¢x¡@";
-	if (index == 2)
-		SetConsoleTextAttribute(hConsole, MenuChoosenColor);
-	cout << "Â÷¶}¹CÀ¸";
-	SetConsoleTextAttribute(hConsole, MenuLineColor);
-	cout << "¡@¢x\n";
-
+	cout << "¢x¡@" << mainMenuText[2] << "¡@¢x\n";
 	for (int i = 0; i < space; i++)
 		cout << "¡@"; 
+
 	cout << "¢|¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢}\n";
 	for (int i = 0; i < blank_row; i++)
 		cout << "\n";
 }
 
-void moveMenu(int keydown) {
+void colorMainMenuCursor() { // color menu's cursor
+	SetConsoleTextAttribute(hConsole, MainMenuLineColor);
+	for (int i = MainMenuTextPositionY, j = 0; i <= MainMenuTextPositionY + 4; i += 2, j++) {
+		GoToXY(MainMenuTextPositionX, i);
+		cout << mainMenuText[j];
+	}
+	
+	SetConsoleTextAttribute(hConsole, MainMenuChoosenColor);
+	GoToXY(MainMenuTextPositionX, MainMenuTextPositionY+mainMenuPosition*2);
+	cout << mainMenuText[mainMenuPosition];
+	SetConsoleTextAttribute(hConsole, InitColor);
+	GoToXY(0, WindowBottomY);
+}
+
+void moveMainMenu(int keydown) { // move menu's cursor
 	if (keydown == UpArrowKey) {
-		menuPosition--;
+		mainMenuPosition--;
 	}
 	if (keydown == DownArrowKey) {
-		menuPosition++;
+		mainMenuPosition++;
 	}
-	if (menuPosition > 2)
-		menuPosition = 0;
-	if (menuPosition < 0)
-		menuPosition = 2;
-	drawMainMenu();
+	if (mainMenuPosition > 2)
+		mainMenuPosition = 0;
+	if (mainMenuPosition < 0)
+		mainMenuPosition = 2;
+	colorMainMenuCursor();
 }
 
 void mainMenuAction() {
 	SetConsoleTextAttribute(hConsole, InitColor);
-	if (menuPosition == 0) {
-		system("cls");
-
-		cout << "Game Start¡I\n"; 
+	if (mainMenuPosition == 0) {
+		system("CLS");
+		GoToXY(MainMenuTextPositionX, MainMenuTextPositionY);
+		cout << "Game Start¡I\n";
 		delay(3000);
 		drawMainMenu();
 	}
-	else if (menuPosition == 1) {
+	else if (mainMenuPosition == 1) {
 		int counter = 0;
 		vector<string> filename;
 		int cmd = -1;
@@ -163,7 +186,7 @@ void mainMenuAction() {
 			drawMainMenu();
 		}
 	}
-	else if (menuPosition == 2) {
+	else if (mainMenuPosition == 2) {
 		exit(0);
 	}
 }
@@ -181,15 +204,15 @@ DWORD getKey() { // get user keydown
 int main() {
 	init();
 	initCmdWindow();
-	//cout << "ùÝùùùùùùùùùùùùùß\nùø¡@¶Ù¡@ùø\nùàùùùùùùùùùùùùùâ\nùø¡@¢ç¡@ùø\nùãùùùùùùùùùùùùùå\n";
 	drawMainMenu();
+	colorMainMenuCursor();
 	
 	while (running) {
 		int keydown = getKey();
 
 		if (keydown != 0) {
 			if (keydown == UpArrowKey || keydown == DownArrowKey) {
-				moveMenu(keydown);
+				moveMainMenu(keydown);
 			}
 			else if (keydown == EnterKey) {
 				mainMenuAction();
