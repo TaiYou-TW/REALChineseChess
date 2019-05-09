@@ -19,8 +19,8 @@ public:
     Chess();
     Chess(const int32_t& uid, const int32_t& kind, const Coord& loc);
 
-    void move();
-    void capture();
+    void move(Coord cursorLoc);
+    void capture(Coord cursorLoc);
 
     void promptMovement(Coord *container) const;
     void promptCapture(Coord *container) const;

@@ -34,13 +34,15 @@ Chess::Chess(const int32_t& uid, const int32_t& kind, const Coord& loc)
     // prevCoord.y = <somthing>;
 }
 
-void Chess::move()
+void Chess::move(Coord cursorLoc)
 {
-
+	currCoord.x = cursorLoc.x;
+	currCoord.y = cursorLoc.y;
 }
-void Chess::capture()
+void Chess::capture(Coord cursorLoc)
 {
-
+	currCoord.x = cursorLoc.x;
+	currCoord.y = cursorLoc.y;
 }
 
 void Chess::promptCapture(Coord* container) const
