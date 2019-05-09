@@ -42,5 +42,5 @@ const int32_t ChessBoard::getChessKind(const Coord& loc) const
 // get chessKind (By uid)
 const int32_t ChessBoard::getChessKind(const int32_t& uid) const
 {
-    
+	return 0;
 }
