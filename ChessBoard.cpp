@@ -22,4 +22,4 @@ void ChessBoard::undo() {}
 void ChessBoard::redo() {}
 
 // get chess ref
-const Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
+Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }

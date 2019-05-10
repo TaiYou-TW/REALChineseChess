@@ -14,7 +14,7 @@ public:
     ChessBoard();
 
     void setChess(const int32_t &uid, const int32_t &kind, const Coord &loc);
-    const Chess &getChess(const Coord &loc);
+    Chess &getChess(const Coord &loc);
     void drawBoard(const BattleArea &board) const;
 
     void undo();
