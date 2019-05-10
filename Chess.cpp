@@ -22,7 +22,7 @@ Chess::Chess()
 // alive = true (if kind != NULL_CHESS)
 // currCoord = loc
 // TODO: prevCoord = <read from file>
-Chess::Chess(const int32_t& uid, const int32_t& kind, const Coord& loc)
+Chess::Chess(const int32_t &uid, const int32_t &kind, const Coord &loc)
 {
     uniqueID = uid;
     kindCode = kind;
@@ -34,22 +34,22 @@ Chess::Chess(const int32_t& uid, const int32_t& kind, const Coord& loc)
     // prevCoord.y = <somthing>;
 }
 
-void Chess::move()
+void Chess::move(const Coord &cursorLoc)
 {
-
+    currCoord.x = cursorLoc.x;
+    currCoord.y = cursorLoc.y;
 }
-void Chess::capture()
+void Chess::capture(const Coord &cursorLoc)
 {
-
+    currCoord.x = cursorLoc.x;
+    currCoord.y = cursorLoc.y;
 }
 
-void Chess::promptCapture(Coord* container) const
+void Chess::promptCapture(Coord *container) const
 {
-
 }
-void Chess::promptMovement(Coord* container) const
+void Chess::promptMovement(Coord *container) const
 {
-
 }
 
 const int32_t Chess::getID() const
@@ -60,21 +60,29 @@ const int32_t Chess::getKind() const
 {
     return kindCode;
 }
+const Coord Chess::getPrevCoord() const
+{
+    return prevCoord;
+}
+const Coord Chess::getCurrCoord() const
+{
+    return currCoord;
+}
 const bool Chess::isAlive() const
 {
     return alive;
 }
 
-Chess& Chess::operator =(const Chess& temp)
+Chess &Chess::operator=(const Chess &temp)
 {
-    this -> uniqueID = temp.uniqueID;
-    this -> kindCode = temp.kindCode;
+    this->uniqueID = temp.uniqueID;
+    this->kindCode = temp.kindCode;
 
-    this -> alive = temp.alive;
-    
-    this -> currCoord.x = temp.currCoord.x;
-    this -> currCoord.y = temp.currCoord.y;
-    this -> prevCoord.x = temp.prevCoord.x;
-    this -> prevCoord.y = temp.prevCoord.y;
+    this->alive = temp.alive;
+
+    this->currCoord.x = temp.currCoord.x;
+    this->currCoord.y = temp.currCoord.y;
+    this->prevCoord.x = temp.prevCoord.x;
+    this->prevCoord.y = temp.prevCoord.y;
     return *this;
 }

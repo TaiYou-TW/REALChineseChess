@@ -55,6 +55,7 @@ void storeSavedFilename(int &counter, vector<string> &filename) {
 	for (auto& p : fs::directory_iterator(path)) {
 		fs::path px = p.path();
 		if (px.extension() == ".txt") {
+			cout << px << endl;
 			filename.push_back(px.filename().string());
 			counter++;
 		}
@@ -173,7 +174,7 @@ void loadGame() {
 		delay(3000);
 		cout << "沒有下一步ㄌ";
 		delay(1000);
-		//Game load(filename[cmd]);
+		Game save(filename[atoi(cmd.c_str()) - 1]);
 	}
 	else {
 		cout << "無存檔！";

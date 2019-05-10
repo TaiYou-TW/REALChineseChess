@@ -10,37 +10,24 @@ ChessBoard::ChessBoard()
 }
 
 // set chess on board
-void ChessBoard::setChess(const int32_t& uid, const int32_t& kind, const Coord& loc)
+void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &loc)
 {
     area[loc.y][loc.x] = Chess(uid, kind, loc);
 }
 // draw
-void ChessBoard::drawBoard(const BattleArea& board) const
+void ChessBoard::drawBoard(const BattleArea &board) const
 {
-
 }
 
 void ChessBoard::undo()
 {
-
 }
 void ChessBoard::redo()
 {
-    
 }
 
-// get chessID
-const int32_t ChessBoard::getChessID(const Coord& loc) const
+// get chess ref
+const Chess &ChessBoard::getChess(const Coord &loc)
 {
-    return area[loc.y][loc.x].getID();
-}
-// get chessKind (By loc)
-const int32_t ChessBoard::getChessKind(const Coord& loc) const
-{
-    return area[loc.y][loc.x].getKind();
-}
-// get chessKind (By uid)
-const int32_t ChessBoard::getChessKind(const int32_t& uid) const
-{
-    
+    return area[loc.y][loc.x];
 }

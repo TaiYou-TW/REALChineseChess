@@ -40,7 +40,7 @@ void Game::loadFile(const string& fileName)
 
     // load file and set chess
     ifstream save;
-    save.open(""); // TODO: which file?
+    save.open(fileName);
     if(save.is_open())
     {   // uid start at 0 
         for(uint16_t row = 0, uid = 0; row < 10; row++, uid++)
@@ -64,11 +64,11 @@ void Game::loadFile(const string& fileName)
 
 const bool Game::isCheckmate() const
 {
-
+	return false;
 }
 const bool Game::isCheck() const
 {
-
+	return false;
 }
 
 void Game::controll()
