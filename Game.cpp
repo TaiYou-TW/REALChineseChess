@@ -77,7 +77,82 @@ void Game::controll()
 }
 void Game::writeReport()
 {
+	int kind=board.getChessKind(controller);
+	string chineseKind, text, kindofchinese = "將士象車馬包卒帥仕相車傌炮兵", numberChinese[2] = { "１２３４５６７８９","九八七六五四三二一" }, verbsChinese="平進退前二三四後";
+	Coord pre=board.getPrevCoord(controller),curr=controller;
 
+	chineseKind = kindofchinese[(board.getChessKind(controller) - 1) * 2] + kindofchinese[(board.getChessKind(controller) - 1) * 2 + 1];
+	short duplicate = 0;
+	
+	if (player==1)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+
+		}
+		text = "紅：";
+		if (pre.x == curr.x)
+		{
+			text += chineseKind + numberChinese[1][(pre.x - 1) * 2] + numberChinese[1][(pre.x - 1) * 2 + 1];
+			if (curr.y < pre.y)
+			{
+				text += verbsChinese[2] + verbsChinese[3] + numberChinese[1][(pre.y - curr.y - 1) * 2] + numberChinese[1][(pre.y - curr.y - 1) * 2 + 1];
+			}
+			else
+			{
+				text += verbsChinese[4] + verbsChinese[5] + numberChinese[1][(curr.y - pre.y - 1) * 2] + numberChinese[1][(curr.y - pre.y - 1) * 2 + 1];
+			}
+		}
+		else if(pre.y==curr.y)
+		{
+			text += chineseKind + numberChinese[1][(pre.x - 1) * 2] + numberChinese[1][(pre.x - 1) * 2 + 1] + verbsChinese[0] + verbsChinese[1] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
+		}
+		else 
+		{
+			text += chineseKind + numberChinese[1][(pre.x - 1) * 2] + numberChinese[1][(pre.x - 1) * 2 + 1];
+			if (curr.y < pre.y)
+			{
+				text += verbsChinese[2] + verbsChinese[3] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
+			}
+			else
+			{
+				text += verbsChinese[4] + verbsChinese[5] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
+			}
+		}
+	}
+	else 
+	{
+		text = "黑：";
+		if (pre.x == curr.x)
+		{
+			text += chineseKind + numberChinese[0][(pre.x - 1) * 2] + numberChinese[0][(pre.x - 1) * 2 + 1];
+			if (curr.y < pre.y)
+			{
+				text += verbsChinese[4] + verbsChinese[5] + numberChinese[0][(pre.y - curr.y - 1) * 2] + numberChinese[0][(pre.y - curr.y - 1) * 2 + 1];
+			}
+			else
+			{
+				text += verbsChinese[2] + verbsChinese[3] + numberChinese[0][(curr.y - pre.y - 1) * 2] + numberChinese[0][(curr.y - pre.y - 1) * 2 + 1];
+			}
+		}
+		else if (pre.y == curr.y)
+		{
+			text += chineseKind + numberChinese[0][(pre.x - 1) * 2] + numberChinese[0][(pre.x - 1) * 2 + 1] + verbsChinese[0] + verbsChinese[1] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
+		}
+		else
+		{
+			text += chineseKind + numberChinese[0][(pre.x - 1) * 2] + numberChinese[0][(pre.x - 1) * 2 + 1];
+			if (curr.y < pre.y)
+			{
+				text += verbsChinese[4] + verbsChinese[5] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
+			}
+			else
+			{
+				text += verbsChinese[2] + verbsChinese[3] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
+			}
+		}
+	}
+	report.push_back(text);
 }
 const uint16_t Game::playerNow() const
 {

@@ -20,7 +20,16 @@ public:
     void undo();
     void redo();
 
+	const Coord getPrevCoord(const Coord& loc) const;
+	//const Coord getChessCurr(const Coord& loc) const;
+    const int32_t getChessID(const Coord& loc) const;
+    const int32_t getChessKind(const Coord& loc) const;
+    const int32_t getChessKind(const int32_t &uid) const;
+    
+
+
     const Chess &getChess(const Coord &loc);
+
 
 private:
     // A "2 dim vector" that store chess
