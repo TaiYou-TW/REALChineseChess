@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include "Board.h"
 
 using namespace std;
 
@@ -19,8 +20,10 @@ public:
     Chess();
     Chess(const int32_t &uid, const int32_t &kind, const Coord &loc);
 
+	void moveOrCapture(const Coord &cursorLoc);
     void move(const Coord &cursorLoc);
     void capture(const Coord &cursorLoc);
+	bool isMovable(const Coord &cursorLoc, const Coord &loc);
 
     void promptMovement(Coord *container) const;
     void promptCapture(Coord *container) const;
@@ -47,4 +50,6 @@ private:
 
     Coord currCoord;
     Coord prevCoord;
+
+	ChessBoard chessBoard;
 };

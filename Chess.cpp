@@ -34,6 +34,21 @@ Chess::Chess(const int32_t &uid, const int32_t &kind, const Coord &loc)
     // prevCoord.y = <somthing>;
 }
 
+bool isMovable(const Coord &cursorLoc, const Coord &loc)
+{
+
+}
+void Chess::moveOrCapture(const Coord &cursorLoc)
+{
+	const Chess get = chessBoard.getChess(cursorLoc);
+	if (isMovable(cursorLoc, currCoord))
+	{
+		if (get.kindCode == NULL_CHESS)
+			move(cursorLoc);
+		else
+			capture(cursorLoc);
+	}
+}
 void Chess::move(const Coord &cursorLoc)
 {
     currCoord.x = cursorLoc.x;
