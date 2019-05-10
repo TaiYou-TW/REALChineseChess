@@ -2,7 +2,7 @@
 #define PLAYER_RED 1
 #define PLAYER_BLACK 0
 
-#include "Board.h"
+#include "ChessBoard.h"
 
 using namespace std;
 
