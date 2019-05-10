@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include "Board.h"
 
 using namespace std;
 
@@ -17,19 +18,24 @@ class Chess
 {
 public:
     Chess();
-    Chess(const int32_t& uid, const int32_t& kind, const Coord& loc);
+    Chess(const int32_t &uid, const int32_t &kind, const Coord &loc);
 
-    void move();
-    void capture();
+	void moveOrCapture(const Coord &cursorLoc);
+    void move(const Coord &cursorLoc);
+    void capture(const Coord &cursorLoc);
+	bool isMovable(const Coord &cursorLoc, const Coord &loc);
 
     void promptMovement(Coord *container) const;
     void promptCapture(Coord *container) const;
 
     const int32_t getID() const;
     const int32_t getKind() const;
+    const Coord getPrevCoord() const;
+    const Coord getCurrCoord() const;
     const bool isAlive() const;
 
-    Chess& operator =(const Chess& temp);
+    Chess &operator=(const Chess &temp);
+
 private:
     // A uniqueID
     // Same kind won't have same ID
@@ -44,4 +50,6 @@ private:
 
     Coord currCoord;
     Coord prevCoord;
+
+	ChessBoard chessBoard;
 };
