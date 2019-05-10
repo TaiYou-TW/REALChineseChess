@@ -4,35 +4,51 @@
 #include <thread>
 #include <experimental/filesystem>
 #include <windows.h>
+#include <fstream>
 
 #include "Game.h"
 
 #define CmdWidth 1200
 #define CmdHeight 650
+
 #define MainMenuLineColor 9
 #define MainMenuChoosenColor 240
 #define InitColor 7
+
 #define UpArrowKey 38
+#define LeftArrowKey 37
+#define RightArrowKey 39
 #define DownArrowKey 40
 #define EnterKey 13
-#define MainMenuTextPositionX 67
+
+#define MainMenuTextPositionX 55
 #define MainMenuTextPositionY 16
 #define WindowBottomY 37
+
+#define BoardRow 10
+#define BoardCol 9
 
 using namespace std;
 namespace fs = std::experimental::filesystem;
 
-const string path = "./save";
+const string savePath = "./save";
 const string mainMenuText[3] = { "開新遊戲", "讀取存檔", "離開遊戲" };
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
 bool running = true;
+bool gameRunning = true;
 int mainMenuPosition = 0;
+Coord cursor;
 
 void init() {
+	SetConsoleTextAttribute(hConsole, InitColor);
+
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
+	
+	//system("chcp 65001");
+	system("CHCP 950"); // BIG-5
 }
 
 void GoToXY(int column, int line)
@@ -51,12 +67,24 @@ void delay(int time) {
 	std::this_thread::sleep_for(std::chrono::milliseconds(time));
 }
 
+DWORD getKey() { // get user keydown
+	INPUT_RECORD irInput;
+	DWORD InputsRead = 0;
+	ReadConsoleInput(hInput, &irInput, 1, &InputsRead);
+	if (irInput.Event.KeyEvent.bKeyDown)
+		return irInput.Event.KeyEvent.wVirtualKeyCode;
+	else
+		return 0;
+}
+
 void storeSavedFilename(int &counter, vector<string> &filename) {
-	for (auto& p : fs::directory_iterator(path)) {
+	cout << "目前存檔：\n";
+	int i = 1;
+	for (auto& p : fs::directory_iterator(savePath)) {
 		fs::path px = p.path();
 		if (px.extension() == ".txt") {
-			cout << px << endl;
-			filename.push_back(px.filename().string());
+			cout << i++ << " : " << px.stem() << endl;
+			filename.push_back(px.string());
 			counter++;
 		}
 	}
@@ -86,7 +114,7 @@ void colorMainMenuCursor() { // color menu's cursor
 
 void drawMainMenu() {
 	int index = mainMenuPosition;
-	int space = 32;
+	int space = 26;
 	int blank_row = 15;
 
 	system("CLS");
@@ -142,10 +170,58 @@ void moveMainMenu(int keydown) { // move menu's cursor
 	colorMainMenuCursor();
 }
 
+void printGameFormat() {
+	ifstream in;
+	in.open("./Format/main.ya");
+	string line;
+	while (getline(in, line)) {
+		cout << line << "\n";
+	}
+}
+
+void moveCursor(int keydown) {
+	if (keydown == UpArrowKey) {
+		cursor.y--;
+	}
+	else if (keydown == DownArrowKey) {
+		cursor.y++;
+	}
+	else if (keydown == LeftArrowKey) {
+		cursor.x--;
+	}
+	else if (keydown == RightArrowKey) {
+		cursor.x++;
+	}
+	if (cursor.x < 0)
+		cursor.x = BoardCol - 1;
+	if (cursor.x >= BoardCol)
+		cursor.x = 0;
+	if (cursor.y < 0)
+		cursor.y = BoardRow - 1;
+	if (cursor.y >= BoardRow)
+		cursor.y = 0;
+	GoToXY(cursor.x, cursor.y);
+}
+
 void startNewGame() {
 	GoToXY(MainMenuTextPositionX, MainMenuTextPositionY);
 	cout << "Game Start！\n";
-	delay(3000);
+	delay(1000);
+	system("cls");
+	
+	cursor.x = 0;
+	cursor.y = 0;
+
+	printGameFormat();
+
+	while (gameRunning) {
+		int keydown = getKey();
+
+		if (keydown != 0) {
+			if (keydown >= LeftArrowKey && keydown <= DownArrowKey)
+				moveCursor(keydown);
+		}
+	}
 }
 
 void loadGame() {
@@ -156,11 +232,6 @@ void loadGame() {
 	storeSavedFilename(counter, filename);
 
 	if (counter > 0) {
-		cout << "目前存檔：\n";
-		int i = 1;
-		for (vector<string>::iterator it = filename.begin(); it != filename.end(); ++it, i++)
-			cout << i << " : " << *it << "\n";
-
 		while (atoi(cmd.c_str()) < 1 || atoi(cmd.c_str()) > counter) {
 			cout << "請輸入編號(輸入 0 離開) : ";
 			cin >> cmd;
@@ -198,21 +269,12 @@ void mainMenuAction() {
 	drawMainMenu();
 }
 
-DWORD getKey() { // get user keydown
-	INPUT_RECORD irInput;
-	DWORD InputsRead = 0;
-	ReadConsoleInput(hInput, &irInput, 1, &InputsRead);
-	if (irInput.Event.KeyEvent.bKeyDown)
-		return irInput.Event.KeyEvent.wVirtualKeyCode;
-	else
-		return 0;
-}
-
 int main() {
 	init();
 	initCmdWindow();
 	drawMainMenu();
 	
+
 	while (running) {
 		int keydown = getKey();
 

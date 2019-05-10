@@ -43,9 +43,9 @@ void Game::loadFile(const string& fileName)
     save.open(fileName);
     if(save.is_open())
     {   // uid start at 0 
-        for(uint16_t row = 0, uid = 0; row < 10; row++, uid++)
+        for(uint16_t row = 0, uid = 0; row < 10; row++)
         {
-            for(uint16_t col = 0; col < 9; col++) 
+            for(uint16_t col = 0; col < 9; col++, uid++)
             {
                 // set data
                 Coord currLoc;
