@@ -77,78 +77,108 @@ void Game::controll()
 }
 void Game::writeReport()
 {
-	int kind=board.getChessKind(controller);
-	string chineseKind, text, kindofchinese = "將士象車馬包卒帥仕相車傌炮兵", numberChinese[2] = { "１２３４５６７８９","九八七六五四三二一" }, verbsChinese="平進退前二三四後";
-	Coord pre=board.getPrevCoord(controller),curr=controller;
-
-	chineseKind = kindofchinese[(board.getChessKind(controller) - 1) * 2] + kindofchinese[(board.getChessKind(controller) - 1) * 2 + 1];
-	short duplicate = 0;
-	
-	if (player==1)
+	int kind=board.getChess(controller).getKind();
+	Coord pre = board.getChess(controller).getPrevCoord(), curr = controller;
+	//define string
+	const static string duplicateofChinese[4] = { "前後","前中後","前二三後","前二三四後" };
+	const static string kindofChinese = "將士象車馬包卒帥仕相車傌炮兵";
+	const static string numberChinese[2] = { "１２３４５６７８９","九八七六五四三二一" };
+	const static string verbofChinese = "平進退";
+	string text;
+	//Set the first word
+	text = kindofChinese[(kind - 1) * 2] + kindofChinese[(kind - 1) * 2 + 1];
+	//check the how many same kind of chess on the same x INDEX [0](how many) [1]this chess index [2] the bool of 
+	short duplicate[3] = { 0 , 0 , 0 };
+	//check duplicate and set second word
+	for (int i = 0; i <= 9; i++)
 	{
-		for (int i = 0; i < 9; i++)
+		Coord checkCoord;
+		checkCoord.x = pre.x;
+		checkCoord.y = i;
+		const Chess & checkChess = board.getChess(checkCoord);
+		if (checkChess.getKind() == kind)
 		{
-
+			duplicate[0] += 1;
 		}
-		text = "紅：";
-		if (pre.x == curr.x)
+		else if (pre.x == checkCoord.x&&pre.y == checkCoord.y)
 		{
-			text += chineseKind + numberChinese[1][(pre.x - 1) * 2] + numberChinese[1][(pre.x - 1) * 2 + 1];
-			if (curr.y < pre.y)
+			duplicate[0] += 1;
+			duplicate[1] = duplicate[0];
+		}
+		if (duplicate[0] > 1 && i == 9)
+		{
+			duplicate[2] = 1;
+			if (player == 1)
 			{
-				text += verbsChinese[2] + verbsChinese[3] + numberChinese[1][(pre.y - curr.y - 1) * 2] + numberChinese[1][(pre.y - curr.y - 1) * 2 + 1];
+				text += duplicateofChinese[duplicate[0] - 2][(duplicate[1] - 1) * 2] + duplicateofChinese[duplicate[0] - 2][(duplicate[1] - 1) * 2 + 1];
 			}
 			else
 			{
-				text += verbsChinese[4] + verbsChinese[5] + numberChinese[1][(curr.y - pre.y - 1) * 2] + numberChinese[1][(curr.y - pre.y - 1) * 2 + 1];
+				text += duplicateofChinese[duplicate[0] - 2][(duplicate[0]-duplicate[1])*2] + duplicateofChinese[duplicate[0] - 2][(duplicate[0] - duplicate[1] )* 2 + 1];
+			}
+		}
+		else if(i==9)
+		{
+			text += numberChinese[player][(pre.x - 1) * 2] + numberChinese[player][(pre.x - 1) * 2 + 1];
+		}
+	}
+	if (player==1)
+	{
+		text = "紅：" + text;
+		if (pre.x == curr.x)
+		{
+			if (curr.y < pre.y)
+			{
+				text += verbofChinese[2] + verbofChinese[3] + numberChinese[1][(pre.y - curr.y - 1) * 2] + numberChinese[1][(pre.y - curr.y - 1) * 2 + 1];
+			}
+			else
+			{
+				text += verbofChinese[4] + verbofChinese[5] + numberChinese[1][(curr.y - pre.y - 1) * 2] + numberChinese[1][(curr.y - pre.y - 1) * 2 + 1];
 			}
 		}
 		else if(pre.y==curr.y)
 		{
-			text += chineseKind + numberChinese[1][(pre.x - 1) * 2] + numberChinese[1][(pre.x - 1) * 2 + 1] + verbsChinese[0] + verbsChinese[1] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
+			text += verbofChinese[0] + verbofChinese[1] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
 		}
 		else 
 		{
-			text += chineseKind + numberChinese[1][(pre.x - 1) * 2] + numberChinese[1][(pre.x - 1) * 2 + 1];
 			if (curr.y < pre.y)
 			{
-				text += verbsChinese[2] + verbsChinese[3] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
+				text += verbofChinese[2] + verbofChinese[3] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
 			}
 			else
 			{
-				text += verbsChinese[4] + verbsChinese[5] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
+				text += verbofChinese[4] + verbofChinese[5] + numberChinese[1][(curr.x - 1) * 2] + numberChinese[1][(curr.x - 1) * 2 + 1];
 			}
 		}
 	}
 	else 
 	{
-		text = "黑：";
+		text = "黑：" + text;
 		if (pre.x == curr.x)
 		{
-			text += chineseKind + numberChinese[0][(pre.x - 1) * 2] + numberChinese[0][(pre.x - 1) * 2 + 1];
 			if (curr.y < pre.y)
 			{
-				text += verbsChinese[4] + verbsChinese[5] + numberChinese[0][(pre.y - curr.y - 1) * 2] + numberChinese[0][(pre.y - curr.y - 1) * 2 + 1];
+				text += verbofChinese[4] + verbofChinese[5] + numberChinese[0][(pre.y - curr.y - 1) * 2] + numberChinese[0][(pre.y - curr.y - 1) * 2 + 1];
 			}
 			else
 			{
-				text += verbsChinese[2] + verbsChinese[3] + numberChinese[0][(curr.y - pre.y - 1) * 2] + numberChinese[0][(curr.y - pre.y - 1) * 2 + 1];
+				text += verbofChinese[2] + verbofChinese[3] + numberChinese[0][(curr.y - pre.y - 1) * 2] + numberChinese[0][(curr.y - pre.y - 1) * 2 + 1];
 			}
 		}
 		else if (pre.y == curr.y)
 		{
-			text += chineseKind + numberChinese[0][(pre.x - 1) * 2] + numberChinese[0][(pre.x - 1) * 2 + 1] + verbsChinese[0] + verbsChinese[1] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
+			text += verbofChinese[0] + verbofChinese[1] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
 		}
 		else
 		{
-			text += chineseKind + numberChinese[0][(pre.x - 1) * 2] + numberChinese[0][(pre.x - 1) * 2 + 1];
 			if (curr.y < pre.y)
 			{
-				text += verbsChinese[4] + verbsChinese[5] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
+				text += verbofChinese[4] + verbofChinese[5] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
 			}
 			else
 			{
-				text += verbsChinese[2] + verbsChinese[3] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
+				text += verbofChinese[2] + verbofChinese[3] + numberChinese[0][(curr.x - 1) * 2] + numberChinese[0][(curr.x - 1) * 2 + 1];
 			}
 		}
 	}
