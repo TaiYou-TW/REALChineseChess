@@ -15,8 +15,12 @@ public:
 
     void setChess(const int32_t &uid, const int32_t &kind, const Coord &loc);
     Chess &getChess(const Coord &loc);
-    void drawBoard(const BattleArea &board) const;
+    void moveChess(Chess &c, const Coord &cursorLoc);
 
+    void setTurn(const int32_t &t);
+    const int32_t getTurn() const;
+
+    void drawBoard(const BattleArea &board) const;
     void undo();
     void redo();
 

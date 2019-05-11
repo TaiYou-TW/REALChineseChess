@@ -15,11 +15,30 @@ void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &
 {
     area[loc.y][loc.x] = Chess(uid, kind, loc);
 }
-// draw
-void ChessBoard::drawBoard(const BattleArea &board) const {}
-
-void ChessBoard::undo() {}
-void ChessBoard::redo() {}
-
 // get chess ref
 Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
+void ChessBoard::moveChess(Chess &c, const Coord &cursorLoc)
+{
+    if (c.isMovable(cursorLoc, c.getCurrCoord()))
+    {
+        // replace the chess on cursor loc
+        area[cursorLoc.y][cursorLoc.x] = c;
+
+        // clear current loc
+        Chess cleaner;
+        area[c.getCurrCoord().y][c.getCurrCoord().x] = cleaner;
+
+        // update the loc
+        c.moveCoord(cursorLoc);
+    }
+}
+
+// set turn
+void ChessBoard::setTurn(const int32_t &t) { turn = t; }
+// get turn
+const int32_t ChessBoard::getTurn() const { return turn; }
+
+// draw
+void ChessBoard::drawBoard(const BattleArea &board) const {}
+void ChessBoard::undo() {}
+void ChessBoard::redo() {}
