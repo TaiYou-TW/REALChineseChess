@@ -9,8 +9,8 @@ using namespace std;
 
 typedef struct
 {
-    uint32_t x;
-    uint32_t y;
+    int32_t x;
+    int32_t y;
 } Coord;
 
 class Chess
@@ -19,9 +19,8 @@ public:
     Chess();
     Chess(const int32_t &uid, const int32_t &kind, const Coord &loc);
 
-    bool isMovable(const Coord &cursorLoc, const Coord &loc);
-    void moveCoord(const Coord &cursorLoc);
 
+    void moveCoord(const Coord &cursorLoc);
     void promptMovement(Coord *container) const;
     void promptCapture(Coord *container) const;
 

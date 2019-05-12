@@ -31,8 +31,7 @@ Chess::Chess(const int32_t &uid, const int32_t &kind, const Coord &loc)
     // prevCoord.y = <somthing>;
 }
 
-// TODO: horse / elephant / Soldier 's rules
-bool Chess::isMovable(const Coord &cursorLoc, const Coord &loc) {}
+
 void Chess::moveCoord(const Coord &cursorLoc)
 {
     // store current coord
