@@ -10,49 +10,50 @@ ChessBoard::ChessBoard()
     turn = 0;
 }
 // TODO: horse / elephant / Soldier 's rules and all rule
+// before -> chess's current loc  after -> cursor's loc
 bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod) 
 {
 	Coord before = beforecod;
 	Coord after = aftercod;
-	if (turn % 2 == 0)//black PLAYER
+	if (turn % 2 == 0)// PLAYER_BLACK
 	{
-		switch (area[before.x][before.y].getKind())//which kind of chess
+		switch (area[before.x][before.y].getKind())// which kind of chess
 		{
-		case 1:
+		case 1:  // black general
 			if (after.x <= 5 && after.x >= 3 && after.y <= 2 && after.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() > 7))
 			{
 				if (abs(after.x - before.x) == 0 && abs(after.y - before.y) == 1)
 				{
-					return 1;
+					return true;
 				}
 				else if (abs(after.x - before.x) == 1 && abs(after.y - before.y) == 0)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 2:
+		case 2:  // black advisor
 			if (after.x <= 5 && after.x >= 3 && after.y <= 2 && after.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() > 7))
 			{
 				if (abs(after.x - before.x) == 1 && abs(after.y - before.y) == 1)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 3:
+		case 3:  // black elephant
 			if (after.x <= 8 && after.x >= 0 && after.y <= 4 && after.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() > 7))
 			{
 				if (abs(after.x - before.x) == 2 && abs(after.y - before.y) == 2 && area[(after.x + before.x) / 2][(before.y + after.y) / 2].getKind() == -1)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 4:
+		case 4:  // black chariot
 			if (after.x <= 8 && after.x >= 0 && after.y <= 9 && after.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() > 7))
 			{
 				if (abs(after.x - before.x) == 0 && abs(after.y - before.y) > 0 )
@@ -63,7 +64,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
@@ -73,11 +74,11 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
-					return 1;
+					return true;
 				}
 				else if (abs(after.x - before.x) > 0 && abs(after.y - before.y) == 0)
 				{
@@ -87,7 +88,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
@@ -97,16 +98,16 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 5:
+		case 5:  // black horse
 			if (after.x <= 8 && after.x >= 0 && after.y <= 9 && after.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() > 7))
 			{
 				if (abs(after.x - before.x) == 2 && abs(after.y - before.y) == 1)
@@ -115,14 +116,14 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 					{
 						if (area[before.x + 1][before.y].getKind() == -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 					else
 					{
 						if (area[before.x - 1][before.y].getKind() == -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 				}
@@ -132,22 +133,22 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 					{
 						if (area[before.x][before.y+1].getKind() == -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 					else
 					{
 						if (area[before.x][before.y-1].getKind() == -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 				}
-				return 0;
+				return false;
 			}
-			return 0;
+			return false;
 			break;
-		case 6:
+		case 6:  // black cannon
 			if (after.x <= 8 && after.x >= 0 && after.y <= 9 && after.y >= 0)
 			{
 				if (area[after.x][after.y].getKind() == -1)//move
@@ -160,7 +161,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
@@ -170,11 +171,11 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
-						return 1;
+						return true;
 					}
 					else if (abs(after.x - before.x) > 0 && abs(after.y - before.y) == 0)
 					{
@@ -184,7 +185,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
@@ -194,11 +195,11 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
-						return 1;
+						return true;
 					}
 				}
 				else if (area[after.x][after.y].getKind() > 7)//eat
@@ -252,77 +253,77 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 					}
 					if (eatable == 1)
 					{
-						return 1;
+						return true;
 					}
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 7:
+		case 7:  // black soldier
 			if (before.x <= 8 && before.x >= 0 && before.y <= 4 && before.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() > 7))
 			{
 				if (abs(after.x - before.x) == 0 && after.y - before.y == 1)
 				{
-					return 1;
+					return true;
 				}
 			}
 			else if (before.x <= 8 && before.x >= 0 && before.y <=9  && before.y >= 5 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() > 7))
 			{
 				if (abs(after.x - before.x) == 0 && after.y - before.y == 1)
 				{
-					return 1;
+					return true;
 				}
 				else if (abs(after.x - before.x) == 1 && after.y - before.y == 0)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
 		case -1:
-			return 0;
+			return false;
 			break;
 		}
 	}
-	else if(turn % 2 == 1)//red PLAYER
+	else if(turn % 2 == 1) // PLAYER_RED
 	{
 		switch (area[before.x][before.y].getKind())
 		{
-		case 8:
+		case 8:  // red general
 			if (after.x <= 5 && after.x >= 3 && after.y <= 9 && after.y >= 7 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() <= 7))
 			{
 				if (abs(after.x - before.x) == 0 && abs(after.y - before.y) == 1)
 				{
-					return 1;
+					return true;
 				}
 				else if (abs(after.x - before.x) == 1 && abs(after.y - before.y) == 0)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 9:
+		case 9:  // red advisor
 			if (after.x <= 5 && after.x >= 3 && after.y <= 9 && after.y >= 7 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() <= 7))
 			{
 				if (abs(after.x - before.x) == 1 && abs(after.y - before.y) == 1)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 10:
+		case 10:  // red elephant
 			if (after.x <= 8 && after.x >= 0 && after.y <= 9 && after.y >= 5 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() <= 7))
 			{
 				if (abs(after.x - before.x) == 2 && abs(after.y - before.y) == 2 && area[(after.x + before.x) / 2][(before.y + after.y) / 2].getKind() == -1)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 11:
+		case 11:  // red chariot
 			if (after.x <= 8 && after.x >= 0 && after.y <= 9 && after.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() <= 7))
 			{
 				if (abs(after.x - before.x) == 0 && abs(after.y - before.y) > 0)
@@ -333,7 +334,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
@@ -343,11 +344,11 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
-					return 1;
+					return true;
 				}
 				else if (abs(after.x - before.x) > 0 && abs(after.y - before.y) == 0)
 				{
@@ -357,7 +358,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
@@ -367,16 +368,16 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 						{
 							if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 							{
-								return 0;
+								return false;
 							}
 						}
 					}
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 12:
+		case 12:  // red horse
 			if (after.x <= 8 && after.x >= 0 && after.y <= 9 && after.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() <= 7))
 			{
 				if (abs(after.x - before.x) == 2 && abs(after.y - before.y) == 1)
@@ -385,14 +386,14 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 					{
 						if (area[before.x + 1][before.y].getKind() == -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 					else
 					{
 						if (area[before.x - 1][before.y].getKind()== -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 				}
@@ -402,22 +403,22 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 					{
 						if (area[before.x][before.y + 1].getKind() == -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 					else
 					{
 						if (area[before.x][before.y - 1].getKind() == -1)
 						{
-							return 1;
+							return true;
 						}
 					}
 				}
-				return 0;
+				return false;
 			}
-			return 0;
+			return false;
 			break;
-		case 13:
+		case 13:  // red cannon
 			if (after.x <= 8 && after.x >= 0 && after.y <= 9 && after.y >= 0)
 			{
 				if (area[after.x][after.y].getKind() == -1)//move
@@ -430,7 +431,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
@@ -440,11 +441,11 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.y != before.y)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
-						return 1;
+						return true;
 					}
 					else if (abs(after.x - before.x) > 0 && abs(after.y - before.y) == 0)
 					{
@@ -454,7 +455,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
@@ -464,11 +465,11 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 							{
 								if (area[i.x][i.y].getKind() != -1 && i.x != before.x)
 								{
-									return 0;
+									return false;
 								}
 							}
 						}
-						return 1;
+						return true;
 					}
 				}
 				else if (area[after.x][after.y].getKind() <= 7 && area[after.x][after.y].getKind() >= 1)//eat
@@ -522,39 +523,39 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 					}
 					if (eatable == 1)
 					{
-						return 1;
+						return true;
 					}
 				}
 			}
-			return 0;
+			return false;
 			break;
-		case 14:
+		case 14:  // red soldier
 			if (before.x <= 8 && before.x >= 0 && before.y <= 9 && before.y >= 5 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() <= 7))
 			{
 				if (abs(after.x - before.x) == 0 && after.y - before.y == -1)
 				{
-					return 1;
+					return true;
 				}
 			}
 			else if (before.x <= 8 && before.x >= 0 && before.y <= 4 && before.y >= 0 && (area[after.x][after.y].getKind() == -1 || area[after.x][after.y].getKind() <= 7))
 			{
 				if (abs(after.x - before.x) == 0 && after.y - before.y == -1)
 				{
-					return 1;
+					return true;
 				}
 				else if (abs(after.x - before.x) == 1 && after.y - before.y == 0)
 				{
-					return 1;
+					return true;
 				}
 			}
-			return 0;
+			return false;
 			break;
 		case -1:
-			return 0;
+			return false;
 			break;
 		}
 	}
-	return 1;
+	return true;
 }
 // set chess on board
 void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &loc)
