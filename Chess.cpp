@@ -42,8 +42,7 @@ void Chess::moveCoord(const Coord &cursorLoc)
     currCoord.y = cursorLoc.y;
 }
 
-void Chess::promptCapture(Coord *container) const {}
-void Chess::promptMovement(Coord *container) const {}
+
 
 const int32_t Chess::getID() const { return uniqueID; }
 const int32_t Chess::getKind() const { return kindCode; }

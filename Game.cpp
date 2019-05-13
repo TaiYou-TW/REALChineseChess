@@ -60,8 +60,128 @@ void Game::loadFile(const string &fileName)
     }
 }
 
-const bool Game::isCheckmate() const { return false; }
-const bool Game::isCheck() const { return false; }
+const bool Game::isCheckmate() 
+{ 
+	return false; 
+}
+
+const bool Game::isCheck() 
+{ 
+	Coord general_coord;
+	//check player_red is been check
+	if (player == PLAYER_RED)
+	{
+		for (int i = 3, flag = 0; i <= 5; i++)
+		{
+			for (int j = 7; j <= 9; j++)
+			{
+				Coord temp;
+				temp.x = i;
+				temp.y = j;
+				Chess &general = board.getChess(temp);
+				if (general.getKind() == 1)
+				{
+					general_coord.x = i;
+					general_coord.y = j;
+					flag = 1;
+					break;
+				}
+				if (flag == 1)
+				{
+					break;
+				}
+			}
+		}
+		for (int i = 0; i <= 8; i++)
+		{
+			for (int j = 0; j <= 9; j++)
+			{
+				Coord temp;
+				temp.x = i;
+				temp.y = j;
+				if (board.isMovable(general_coord, temp,PLAYER_BLACK) == true)
+				{
+					return 1;
+				}
+			}
+		}
+	}
+	//check player_black is been check
+	else if(player==PLAYER_BLACK)
+	{
+		for (int i = 3,flag=0; i <= 5; i++)
+		{
+			for (int j = 0; j <= 2; j++)
+			{
+				Coord temp;
+				temp.x = i;
+				temp.y = j;
+				Chess &general = board.getChess(temp);
+				if (general.getKind() == 1)
+				{
+					general_coord.x = i;
+					general_coord.y = j;
+					flag = 1;
+					break;
+				}
+				if (flag == 1)
+				{
+					break;
+				}
+			}
+		}
+		for (int i = 0; i <= 8; i++)
+		{
+			for (int j = 0; j <= 9; j++)
+			{
+				Coord temp;
+				temp.x = i;
+				temp.y = j;
+				if (board.isMovable(general_coord, temp, PLAYER_RED) == true)
+				{
+					return 1;
+				}
+			}
+		}
+	}
+	return false;
+}
+vector<Coord> Game::promptCapture(const Coord curr)
+{
+	vector<Coord> Capture;
+	for (int i = 0; i <= 8; i++)
+	{
+		for (int j = 0; j <= 9; j++)
+		{
+			Coord temp;
+			temp.x = i;
+			temp.y = j;
+			if (board.getChess(temp).getKind() != -1 && board.isMovable(temp, curr, player) == true && board.getChess(curr).getKind() != -1)
+			{
+				Capture.push_back(temp);
+			}
+		}
+	}
+	return Capture;
+}
+vector<Coord> Game::promptMovement(const Coord curr) 
+{
+	vector<Coord> Movement;
+	for (int i = 0; i <= 8; i++)
+	{
+		for (int j = 0; j <= 9; j++)
+		{
+			Coord temp;
+			temp.x = i;
+			temp.y = j;
+			if (board.getChess(temp).getKind() == -1 && board.isMovable(temp, curr, player) == true && board.getChess(curr).getKind() != -1)
+			{
+				Movement.push_back(temp);
+			}
+		}
+	}
+	return Movement;
+}
 
 void Game::controll() {}
 void Game::writeReport()

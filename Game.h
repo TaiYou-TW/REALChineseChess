@@ -18,9 +18,10 @@ public:
     void saveFile(const string &fileName) const;
     void loadFile(const string &fileName);
 
-    const bool isCheckmate() const;
-    const bool isCheck() const;
-
+    const bool isCheckmate();
+    const bool isCheck();
+	vector<Coord> promptMovement(Coord);
+	vector<Coord> promptCapture(Coord);
     void controll();
     void writeReport();
     const uint16_t playerNow() const;

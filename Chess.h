@@ -21,8 +21,7 @@ public:
 
 
     void moveCoord(const Coord &cursorLoc);
-    void promptMovement(Coord *container) const;
-    void promptCapture(Coord *container) const;
+
 
     const int32_t getID() const;
     const int32_t getKind() const;

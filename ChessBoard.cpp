@@ -11,11 +11,11 @@ ChessBoard::ChessBoard()
 }
 // TODO: horse / elephant / Soldier 's rules and all rule
 // before -> chess's current loc  after -> cursor's loc
-bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod) 
+bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod,const int player) 
 {
 	Coord before = beforecod;
 	Coord after = aftercod;
-	if (turn % 2 == 0)// PLAYER_BLACK
+	if (player==0)// PLAYER_BLACK
 	{
 		switch (area[before.x][before.y].getKind())// which kind of chess
 		{
@@ -285,7 +285,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 			break;
 		}
 	}
-	else if(turn % 2 == 1) // PLAYER_RED
+	else if(player == 1) // PLAYER_RED
 	{
 		switch (area[before.x][before.y].getKind())
 		{
@@ -566,7 +566,7 @@ void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &
 Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
 void ChessBoard::moveChess(Chess &c, const Coord &cursorLoc)
 {
-    if (isMovable(cursorLoc, c.getCurrCoord()))
+    if (isMovable(cursorLoc, c.getCurrCoord(),turn/2))
     {
         // replace the chess on cursor loc
         area[cursorLoc.y][cursorLoc.x] = c;
