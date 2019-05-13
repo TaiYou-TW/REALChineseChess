@@ -31,6 +31,24 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod,const i
 					return true;
 				}
 			}
+			if (before.x == after.x&&after.y>=7&&after.y<=9)
+			{
+				for (int hasgeneral = 0, i = 0; i <= 9; i++)
+				{
+					if (area[before.x][i].getKind() == 8)
+					{
+						hasgeneral += 1;
+					}
+					else if (area[before.x][i].getKind() != -1)
+					{
+						break;
+					}
+					if (i == 9 && hasgeneral == 1)
+					{
+						return true;
+					}
+				}
+			}
 			return false;
 			break;
 		case 2:  // black advisor
@@ -299,6 +317,24 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod,const i
 				else if (abs(after.x - before.x) == 1 && abs(after.y - before.y) == 0)
 				{
 					return true;
+				}
+			}
+			if (before.x == after.x&&after.y >= 0 && after.y <= 2)
+			{
+				for (int hasgeneral = 0, i = 0; i <= 9; i++)
+				{
+					if (area[before.x][i].getKind() == 1)
+					{
+						hasgeneral += 1;
+					}
+					else if (area[before.x][i].getKind() != -1)
+					{
+						break;
+					}
+					if (i == 9 && hasgeneral == 1)
+					{
+						return true;
+					}
 				}
 			}
 			return false;
