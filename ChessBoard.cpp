@@ -555,7 +555,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod)
 			break;
 		}
 	}
-	return true;
+	return false;
 }
 // set chess on board
 void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &loc)
