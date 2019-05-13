@@ -138,24 +138,71 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
     MoveWindow(console, 100, 100, width, height, TRUE);
 }
 
-void colorBoard()
+void colorBoard(ChessBoard obj)
 {  // color Board
 	int start_x = 43;
 	int end_x = 74;
+	int start_y = BoardInitY;
+	int end_y = BoardInitY + BoardRow;
 	SetConsoleTextAttribute(hConsole, BoardNumColor);
 	GoToXY(BoardInitX, BoardInitY-1);
 	cout << Board[1][start_x - 2] << Board[1][start_x - 1];
 	for (int i = start_x; i <= end_x; i += 2)
 	{
-		for (int j = i; j < i+2; j++)
+		for (int j = i; j < i + 2; j++)
 			cout << Board[1][j];
 	}
 	GoToXY(BoardInitX, BoardInitY);
-	for (int i = start_x; i <= end_x; i += 2)
+	for (int i = start_x-8; i <= end_x+28; i += 2)
 	{
 		for (int j = i; j < i + 2; j++)
 			cout << Board[2][j];
 	}
+	Coord coo;
+	for (int i = start_y  + 1, row = 0; i <= end_y; i ++, row++)
+	{
+		GoToXY(BoardInitX, i);
+		row = 0;
+		for (int j = start_x, col = 0; j <= end_x; j++, col++) {
+			coo.x = row;
+			coo.y = col;
+			if (obj.getChess(coo).getKind() == -1)
+			{
+				SetConsoleTextAttribute(hConsole, BoardColor);
+			}
+			else if (obj.getChess(coo).getKind() >= 1 && obj.getChess(coo).getKind() <= 7) // black
+			{
+				SetConsoleTextAttribute(hConsole, BlackColor);
+			}
+			else if (obj.getChess(coo).getKind() >= 8 && obj.getChess(coo).getKind() <= 14) // red
+			{
+				SetConsoleTextAttribute(hConsole, RedColor);
+			}
+			for (int k = j; k < j + 2; k++)
+				cout << Board[i][k];
+		}
+	}
+	/*for (int i = start_x, col = 0; i <= end_x; i += 2, col++)
+	{
+		for (int j = start_y, row = 0; j <= end_y; j++, row++) {
+			coo.x = row;
+			coo.y = col;
+			if (obj.getChess(coo).getKind() == -1) 
+			{
+				SetConsoleTextAttribute(hConsole, BoardColor);
+			}
+			else if (obj.getChess(coo).getKind() >= 1 && obj.getChess(coo).getKind() <= 7) // black
+			{
+				SetConsoleTextAttribute(hConsole, BlackColor);
+			}
+			else if (obj.getChess(coo).getKind() >= 8 && obj.getChess(coo).getKind() <= 14) // red
+			{
+				SetConsoleTextAttribute(hConsole, RedColor);
+			}
+			for (int k = i; k < i + 2; k++)
+				cout << Board[j][j];
+		}
+	}*/
 
 	GoToXY(BoardInitX, BoardInitY);
 }
@@ -237,7 +284,6 @@ void printGameFormat()
     }*/
 	for (int i = 0; i < 23; i++)
 		cout << Board[i] << "\n";
-	colorBoard();
 }
 
 void moveCursor(int keydown)
@@ -271,7 +317,8 @@ void startNewGame()
 {
     GoToXY(MainMenuTextInitX, MainMenuTextInitY);
     cout << "Game Start¡I\n";
-	Game newGame();
+	Game newGame;
+	ChessBoard& board = newGame.getboard();
     delay(1000);
     system("cls");
 
@@ -279,6 +326,7 @@ void startNewGame()
     cursor.y = 0;
 
     printGameFormat();
+	colorBoard(board);
 
     while (gameRunning)
     {
