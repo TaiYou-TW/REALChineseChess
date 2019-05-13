@@ -26,8 +26,10 @@
 #define DownArrowKey 40
 #define EnterKey 13
 
-#define MainMenuTextPositionX 55
-#define MainMenuTextPositionY 12
+#define MainMenuTextInitX 55
+#define MainMenuTextInitY 12
+#define BoardInitX 32
+#define BoardInitY 2
 #define WindowBottomY 29
 
 #define BoardRow 10
@@ -38,6 +40,31 @@ namespace fs = std::experimental::filesystem;
 
 const string savePath = "./save";
 const string mainMenuText[3] = {"¶}·s¹Cְ¸", "ֵ×¨ת¦sְֹ", "ֲק¶}¹Cְ¸"};
+//const string BoardText[8] = {"¢°¢±¢²¢³¢´¢µ¢¶¢·¢¸", "¨®°¨¶H₪h±N₪h¶H°¨¨®", "¯¥", "¨ע", "§L", "¬¶", "¨®״X¬Û¥K«׃¥K¬Û״X¨®", "₪E₪K₪C₪»₪­¥|₪T₪G₪@" };
+const string Board[] = {
+"שÝשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששß",
+"שר שÝשששששש¡@¾װ¡@×p¡@ֵד¡@¥Ü¡@שששששששß¡@¡@¢°¡@¢±¡@¢²¡@¢³¡@¢´¡@¢µ¡@¢¶¡@¢·¡@¢¸¡@¡@שÝשששששששששששששששששששששששששששששששששששששששששששששששששששששששß שר",
+"שר שר                        שר¡@¡@שÝשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששß    שר                           שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x ¢@¢x¡‏ ¢x   ¢x   ¢x    שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w שר    שר    ½ü¨ל¡@    ₪ט¡@₪U´ׁ     שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x ¡‏¢x¢@ ¢x   ¢x   ¢x    שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x    שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x    שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w¢r¢w¢w¢w שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר     ·¡×e            ÷~¬ֹ       שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w¢s¢w¢w¢w שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x    שר    שאשששששששששששששששששששששששששששששששששששששששששששששששששששששששג שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x   ¢x    שר    שר  Esc ¿ן³ז  < ®¬´ׁ  > ֱÙ­ל שר שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x ¢@¢x¡‏ ¢x   ¢x   ¢x    שר    שר      Enter   ¿ן¨ת´ׁ₪l     שר שר",
+"שר שר                        שר¡@¡@שר ¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w¢q¢w¢w¢w שר    שר                           שר שר",
+"שר שר                        שר¡@¡@שר   ¢x   ¢x   ¢x ¡‏¢x¢@ ¢x   ¢x   ¢x    שר    שר       ₪ט¦Vֱה±±¨מ´ו¼׀      שר שר",
+"שר שר                        שר¡@¡@שדשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששו    שר                           שר שר",
+"שר שדשששששששששששששששששששששששששששששששששששששששששששששששששו¡@¡@₪E¡@₪K¡@₪C¡@₪»¡@₪­¡@¥|¡@₪T¡@₪G¡@₪@    שדשששששששששששששששששששששששששששששששששששששששששששששששששששששששו שר",
+"שדשששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששששו"};
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
@@ -65,11 +92,14 @@ void GoToXY(int column, int line)
 
     if (!SetConsoleCursorPosition(hConsole, coord))
     {
-        cout << "²¾°Ê´ו¼׀err";
+        cout << "²¾°Ê´ו¼׀error";
     }
 }
 
-void delay(int time) { std::this_thread::sleep_for(std::chrono::milliseconds(time)); }
+void delay(int time) 
+{ 
+	std::this_thread::sleep_for(std::chrono::milliseconds(time)); 
+}
 
 DWORD getKey()
 {  // get user keydown
@@ -110,20 +140,37 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
 
 void colorBoard()
 {  // color Board
-	
+	int start_x = 43;
+	int end_x = 74;
+	SetConsoleTextAttribute(hConsole, BoardNumColor);
+	GoToXY(BoardInitX, BoardInitY-1);
+	cout << Board[1][start_x - 2] << Board[1][start_x - 1];
+	for (int i = start_x; i <= end_x; i += 2)
+	{
+		for (int j = i; j < i+2; j++)
+			cout << Board[1][j];
+	}
+	GoToXY(BoardInitX, BoardInitY);
+	for (int i = start_x; i <= end_x; i += 2)
+	{
+		for (int j = i; j < i + 2; j++)
+			cout << Board[2][j];
+	}
+
+	GoToXY(BoardInitX, BoardInitY);
 }
 
 void colorMainMenuCursor()
 {  // color menu's cursor
     SetConsoleTextAttribute(hConsole, MainMenuLineColor);
-    for (int i = MainMenuTextPositionY, j = 0; i <= MainMenuTextPositionY + 4; i += 2, j++)
+    for (int i = MainMenuTextInitY, j = 0; i <= MainMenuTextInitY + 4; i += 2, j++)
     {
-        GoToXY(MainMenuTextPositionX, i);
+        GoToXY(MainMenuTextInitX, i);
         cout << mainMenuText[j];
     }
 
     SetConsoleTextAttribute(hConsole, MainMenuChoosenColor);
-    GoToXY(MainMenuTextPositionX, MainMenuTextPositionY + mainMenuPosition * 2);
+    GoToXY(MainMenuTextInitX, MainMenuTextInitY + mainMenuPosition * 2);
     cout << mainMenuText[mainMenuPosition];
     GoToXY(0, WindowBottomY);
 }
@@ -181,17 +228,22 @@ void moveMainMenu(int keydown)
 
 void printGameFormat()
 {
-    ifstream in;
-    in.open("./Format/test.ya");
+    /*ifstream in;
+    in.open("./Format/init.ya");
     string line;
     while (getline(in, line))
     {
         cout << line << "\n";
-    }
+    }*/
+	for (int i = 0; i < 23; i++)
+		cout << Board[i] << "\n";
+	colorBoard();
 }
 
 void moveCursor(int keydown)
 {
+	int max_x = BoardCol * 2 + BoardInitX;
+	int max_y = BoardRow * 2 + BoardInitY;
     if (keydown == UpArrowKey)
     {
         cursor.y--;
@@ -208,17 +260,18 @@ void moveCursor(int keydown)
     {
         cursor.x++;
     }
-    if (cursor.x < 0) cursor.x = BoardCol - 1;
-    if (cursor.x >= BoardCol) cursor.x = 0;
-    if (cursor.y < 0) cursor.y = BoardRow - 1;
-    if (cursor.y >= BoardRow) cursor.y = 0;
-    GoToXY(cursor.x, cursor.y);
+    if (cursor.x < BoardInitX) cursor.x = max_x - 1;
+    if (cursor.x >= max_x) cursor.x = BoardInitX;
+    if (cursor.y < BoardInitY) cursor.y = max_y - 1;
+    if (cursor.y >= max_y) cursor.y = BoardInitY;
+    GoToXY(cursor.x + BoardInitX - 1, cursor.y + BoardInitY - 1);
 }
 
 void startNewGame()
 {
-    GoToXY(MainMenuTextPositionX, MainMenuTextPositionY);
+    GoToXY(MainMenuTextInitX, MainMenuTextInitY);
     cout << "Game Start¡I\n";
+	Game newGame();
     delay(1000);
     system("cls");
 
@@ -292,11 +345,19 @@ void mainMenuAction()
     drawMainMenu();
 }
 
+void testColor() {
+	for (int i = 1; i <= 255; i++) {
+		SetConsoleTextAttribute(hConsole, i);
+		cout << i << " : weqweqweqwe\n";
+	}
+
+}
 int main()
 {
     init();
     initCmdWindow();
     drawMainMenu();
+	//testColor();
     while (running)
     {
         int keydown = getKey();
