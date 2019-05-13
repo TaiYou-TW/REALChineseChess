@@ -14,6 +14,11 @@
 #define MainMenuLineColor 9
 #define MainMenuChoosenColor 240
 #define InitColor 7
+#define BlackColor 8
+#define RedColor 12
+#define BoardColor 240
+#define BoardNumColor 253
+#define HintColor 3
 
 #define UpArrowKey 38
 #define LeftArrowKey 37
@@ -22,8 +27,8 @@
 #define EnterKey 13
 
 #define MainMenuTextPositionX 55
-#define MainMenuTextPositionY 16
-#define WindowBottomY 37
+#define MainMenuTextPositionY 12
+#define WindowBottomY 29
 
 #define BoardRow 10
 #define BoardCol 9
@@ -103,11 +108,15 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
     MoveWindow(console, 100, 100, width, height, TRUE);
 }
 
+void colorBoard()
+{  // color Board
+	
+}
+
 void colorMainMenuCursor()
 {  // color menu's cursor
     SetConsoleTextAttribute(hConsole, MainMenuLineColor);
-    for (int i = MainMenuTextPositionY, j = 0; i <= MainMenuTextPositionY + 4;
-         i += 2, j++)
+    for (int i = MainMenuTextPositionY, j = 0; i <= MainMenuTextPositionY + 4; i += 2, j++)
     {
         GoToXY(MainMenuTextPositionX, i);
         cout << mainMenuText[j];
@@ -123,7 +132,7 @@ void drawMainMenu()
 {
     int index = mainMenuPosition;
     int space = 26;
-    int blank_row = 15;
+    int blank_row = 11;
 
     system("CLS");
     SetConsoleTextAttribute(hConsole, MainMenuLineColor);
@@ -173,7 +182,7 @@ void moveMainMenu(int keydown)
 void printGameFormat()
 {
     ifstream in;
-    in.open("./Format/main.ya");
+    in.open("./Format/test.ya");
     string line;
     while (getline(in, line))
     {
@@ -288,7 +297,6 @@ int main()
     init();
     initCmdWindow();
     drawMainMenu();
-
     while (running)
     {
         int keydown = getKey();
