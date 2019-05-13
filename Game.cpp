@@ -64,7 +64,10 @@ const bool Game::isCheckmate()
 { 
 	return false; 
 }
-
+ChessBoard& Game::getboard()
+{
+	return board;
+}
 const bool Game::isCheck() 
 { 
 	Coord general_coord;

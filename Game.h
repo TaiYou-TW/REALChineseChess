@@ -17,7 +17,7 @@ public:
 
     void saveFile(const string &fileName) const;
     void loadFile(const string &fileName);
-
+	ChessBoard& getboard();
     const bool isCheckmate();
     const bool isCheck();
 	vector<Coord> promptMovement(Coord);
