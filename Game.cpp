@@ -31,7 +31,10 @@ Game::Game(const string &fileName)
 	controller.y = 0;
 }
 
-void Game::saveFile(const string &fileName) const {}
+void Game::saveFile(const string &fileName) const
+{
+	ofstream save;
+}
 
 void Game::loadFile(const string &fileName)
 {
@@ -336,6 +339,7 @@ void Game::writeHistory(const BattleArea &oldArea)
 {
 	history.push_back(oldArea);
 }
+void Game::setPlayer(const uint16_t& p){ player = p; }
 const uint16_t Game::playerNow() const { return player; }
 
 void Game::controll(const int32_t &xOffset, const int32_t &yOffset)

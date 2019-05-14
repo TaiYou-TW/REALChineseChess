@@ -30,6 +30,7 @@ public:
 
     void writeReport();
     void writeHistory(const BattleArea &oldArea);
+    void setPlayer(const uint16_t&);
     const uint16_t playerNow() const;
 
     static void controll(const int32_t &xOffset, const int32_t &yOffSet);
