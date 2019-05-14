@@ -70,6 +70,7 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
 bool running = true;
 bool gameRunning = true;
+bool holdChess = false;
 int mainMenuPosition = 0;
 Coord cursor;
 
@@ -337,6 +338,7 @@ void moveCursor(int keydown)
     GoToXY(cursor.x + BoardInitX - 1, cursor.y + BoardInitY - 1);
 }
 
+// main gaming process
 void startNewGame()
 {
     GoToXY(MainMenuTextInitX, MainMenuTextInitY);
@@ -355,11 +357,31 @@ void startNewGame()
     while (gameRunning)
     {
         int keydown = getKey();
-
+        Coord select;
         if (keydown != 0)
         {
+            // move the cursor by arrow key
             if (keydown >= LeftArrowKey && keydown <= DownArrowKey)
                 moveCursor(keydown);
+            // has no chess -> select
+            // TODO: complete the select method
+            else if (keydown == EnterKey && !holdChess)
+            {
+                // select a location
+                // select.x = cursor.x;
+                // select.y = cursor.y;
+                holdChess = true;
+            }
+            // has chess -> move
+            else if (keydown == EnterKey && holdChess)
+            {
+                // move the chess
+                Chess &c = board.getChess(select);
+                board.moveChess(c, /*another coord*/);
+                holdChess = false;
+                // store board's old status
+                newGame.writeHistory(board.getArea());
+            }
         }
     }
 }
