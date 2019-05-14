@@ -17,7 +17,7 @@ public:
     Game();
     Game(const string &fileName);
 
-    void saveFile(const string &fileName) const;
+    void saveFile(const string &fileName);
     void loadFile(const string &fileName);
 
     ChessBoard &getboard();
