@@ -600,7 +600,7 @@ void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &
 }
 // get chess ref
 Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
-void ChessBoard::moveChess(Chess &c, const Coord &cursorLoc)
+bool ChessBoard::moveChess(Chess &c, const Coord &cursorLoc)
 {
 	if (isMovable(cursorLoc, c.getCurrCoord(), turn / 2))
 	{
@@ -613,7 +613,9 @@ void ChessBoard::moveChess(Chess &c, const Coord &cursorLoc)
 
 		// update the loc
 		c.moveCoord(cursorLoc);
+		return true;
 	}
+	return false;
 }
 
 // set turn
