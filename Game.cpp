@@ -332,6 +332,10 @@ void Game::writeReport()
 		report[board.getTurn() - 1] = text;
 	}
 }
+void Game::writeHistory(const BattleArea &oldArea)
+{
+	history.push_back(oldArea);
+}
 const uint16_t Game::playerNow() const { return player; }
 
 void Game::controll(const int32_t &xOffset, const int32_t &yOffset)

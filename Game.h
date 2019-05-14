@@ -19,13 +19,19 @@ public:
 
     void saveFile(const string &fileName) const;
     void loadFile(const string &fileName);
+
     ChessBoard &getboard();
+
     const bool isCheckmate();
     const bool isCheck();
+
     vector<Coord> promptMovement(Coord);
     vector<Coord> promptCapture(Coord);
+
     void writeReport();
+    void writeHistory(const BattleArea &oldArea);
     const uint16_t playerNow() const;
+
     static void controll(const int32_t &xOffset, const int32_t &yOffSet);
     static void controll(const int32_t &specified);
 
