@@ -1,6 +1,8 @@
 #pragma once
 #define PLAYER_RED 1
 #define PLAYER_BLACK 0
+#define max_x 50
+#define max_y 22
 
 #include "ChessBoard.h"
 
@@ -17,14 +19,15 @@ public:
 
     void saveFile(const string &fileName) const;
     void loadFile(const string &fileName);
-	ChessBoard& getboard();
+    ChessBoard &getboard();
     const bool isCheckmate();
     const bool isCheck();
-	vector<Coord> promptMovement(Coord);
-	vector<Coord> promptCapture(Coord);
-    void controll();
+    vector<Coord> promptMovement(Coord);
+    vector<Coord> promptCapture(Coord);
     void writeReport();
     const uint16_t playerNow() const;
+    static void controll(const int32_t &xOffset, const int32_t &yOffSet);
+    static void controll(const int32_t &specified);
 
 private:
     // Store old battle area
@@ -40,5 +43,5 @@ private:
     ChessBoard board;
 
     // Controller's coord
-    Coord controller;
+    static Coord controller;
 };

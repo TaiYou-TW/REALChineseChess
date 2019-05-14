@@ -42,29 +42,29 @@ const string savePath = "./save";
 const string mainMenuText[3] = {"╢}╖s╣C└╕", "┼ки·жs└╔", "┬ў╢}╣C└╕"};
 //const string BoardText[8] = {"в░в▒в▓в│в┤в╡в╢в╖в╕", "ио░и╢Hдh▒Nдh╢H░иио", "пе", "иЄ", "зL", "м╢", "ио╪Xм█еKл╙еKм█╪Xио", "дEдKдCд╗дне|дTдGд@" };
 const string Board[] = {
-"∙▌∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙▀",
-"∙° ∙▌∙∙∙∙∙∙б@╛╘б@кpб@┼уб@е▄б@∙∙∙∙∙∙∙▀б@б@в░б@в▒б@в▓б@в│б@в┤б@в╡б@в╢б@в╖б@в╕б@б@∙▌∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙▀ ∙°",
-"∙° ∙°                        ∙°б@б@∙▌∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙▀    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx в@вxб■ вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°    ╜№иьб@    дшб@дU┤╤     ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx б■вxв@ вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвw ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°     ╖бкe            ║~м╔       ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвw ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙р∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙т ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙°  Esc ┐я│ц  < ом┤╤  > ┴┘нь ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx в@вxб■ вx   вx   вx    ∙°    ∙°      Enter   ┐яи·┤╤дl     ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙°   вx   вx   вx б■вxв@ вx   вx   вx    ∙°    ∙°       дшжV┴ф▒▒ию┤х╝╨      ∙° ∙°",
-"∙° ∙°                        ∙°б@б@∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙х    ∙°                           ∙° ∙°",
-"∙° ∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙хб@б@дEб@дKб@дCб@д╗б@днб@е|б@дTб@дGб@д@    ∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙х ∙°",
-"∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙х"};
+    "∙▌вдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙▀",
+    "∙° ∙▌вдвдвдб@╛╘б@кpб@┼уб@е▄б@вдвдвд∙▀б@б@в░б@в▒б@в▓б@в│б@в┤б@в╡б@в╢б@в╖б@в╕б@б@∙▌вдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙▀ ∙°",
+    "∙° ∙°                        ∙°б@б@∙▌вдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙▀    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx в@вxб■ вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°    ╜№иьб@    дшб@дU┤╤     ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx б■вxв@ вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвw ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°     ╖бкe            ║~м╔       ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвw ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙рвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙т ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙°  Esc ┐я│ц  < ом┤╤  > ┴┘нь ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx в@вxб■ вx   вx   вx    ∙°    ∙°      Enter   ┐яи·┤╤дl     ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx б■вxв@ вx   вx   вx    ∙°    ∙°       дшжV┴ф▒▒ию┤х╝╨      ∙° ∙°",
+    "∙° ∙°                        ∙°б@б@∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙х    ∙°                           ∙° ∙°",
+    "∙° ∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙хб@б@дEб@дKб@дCб@д╗б@днб@е|б@дTб@дGб@д@    ∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙х ∙°",
+    "∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙х"};
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
@@ -81,7 +81,7 @@ void init()
     cin.tie(0);
 
     // system("chcp 65001");
-    system("CHCP 950");  // BIG-5
+    system("CHCP 950"); // BIG-5
 }
 
 void GoToXY(int column, int line)
@@ -96,13 +96,13 @@ void GoToXY(int column, int line)
     }
 }
 
-void delay(int time) 
-{ 
-	std::this_thread::sleep_for(std::chrono::milliseconds(time)); 
+void delay(int time)
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(time));
 }
 
 DWORD getKey()
-{  // get user keydown
+{ // get user keydown
     INPUT_RECORD irInput;
     DWORD InputsRead = 0;
     ReadConsoleInput(hInput, &irInput, 1, &InputsRead);
@@ -129,7 +129,7 @@ void storeSavedFilename(int &counter, vector<string> &filename)
 }
 
 void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
-{  // set cmd window's width and height
+{ // set cmd window's width and height
     HWND console = GetConsoleWindow();
     RECT r;
 
@@ -139,50 +139,51 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
 }
 
 void colorBoard(ChessBoard obj)
-{  // color Board
-	int start_x = 43;
-	int end_x = 74;
-	int start_y = BoardInitY;
-	int end_y = BoardInitY + BoardRow;
-	SetConsoleTextAttribute(hConsole, BoardNumColor);
-	GoToXY(BoardInitX, BoardInitY-1);
-	cout << Board[1][start_x - 2] << Board[1][start_x - 1];
-	for (int i = start_x; i <= end_x; i += 2)
-	{
-		for (int j = i; j < i + 2; j++)
-			cout << Board[1][j];
-	}
-	GoToXY(BoardInitX, BoardInitY);
-	for (int i = start_x-8; i <= end_x+28; i += 2)
-	{
-		for (int j = i; j < i + 2; j++)
-			cout << Board[2][j];
-	}
-	Coord coo;
-	for (int i = start_y  + 1, row = 0; i <= end_y; i ++, row++)
-	{
-		GoToXY(BoardInitX, i);
-		row = 0;
-		for (int j = start_x, col = 0; j <= end_x; j++, col++) {
-			coo.x = row;
-			coo.y = col;
-			if (obj.getChess(coo).getKind() == -1)
-			{
-				SetConsoleTextAttribute(hConsole, BoardColor);
-			}
-			else if (obj.getChess(coo).getKind() >= 1 && obj.getChess(coo).getKind() <= 7) // black
-			{
-				SetConsoleTextAttribute(hConsole, BlackColor);
-			}
-			else if (obj.getChess(coo).getKind() >= 8 && obj.getChess(coo).getKind() <= 14) // red
-			{
-				SetConsoleTextAttribute(hConsole, RedColor);
-			}
-			for (int k = j; k < j + 2; k++)
-				cout << Board[i][k];
-		}
-	}
-	/*for (int i = start_x, col = 0; i <= end_x; i += 2, col++)
+{ // color Board
+    int start_x = 43;
+    int end_x = 74;
+    int start_y = BoardInitY;
+    int end_y = BoardInitY + BoardRow;
+    SetConsoleTextAttribute(hConsole, BoardNumColor);
+    GoToXY(BoardInitX, BoardInitY - 1);
+    cout << Board[1][start_x - 2] << Board[1][start_x - 1];
+    for (int i = start_x; i <= end_x; i += 2)
+    {
+        for (int j = i; j < i + 2; j++)
+            cout << Board[1][j];
+    }
+    GoToXY(BoardInitX, BoardInitY);
+    for (int i = start_x - 8; i <= end_x + 28; i += 2)
+    {
+        for (int j = i; j < i + 2; j++)
+            cout << Board[2][j];
+    }
+    Coord coo;
+    for (int i = start_y + 1, row = 0; i <= end_y; i++, row++)
+    {
+        GoToXY(BoardInitX, i);
+        row = 0;
+        for (int j = start_x, col = 0; j <= end_x; j++, col++)
+        {
+            coo.x = row;
+            coo.y = col;
+            if (obj.getChess(coo).getKind() == -1)
+            {
+                SetConsoleTextAttribute(hConsole, BoardColor);
+            }
+            else if (obj.getChess(coo).getKind() >= 1 && obj.getChess(coo).getKind() <= 7) // black
+            {
+                SetConsoleTextAttribute(hConsole, BlackColor);
+            }
+            else if (obj.getChess(coo).getKind() >= 8 && obj.getChess(coo).getKind() <= 14) // red
+            {
+                SetConsoleTextAttribute(hConsole, RedColor);
+            }
+            for (int k = j; k < j + 2; k++)
+                cout << Board[i][k];
+        }
+    }
+    /*for (int i = start_x, col = 0; i <= end_x; i += 2, col++)
 	{
 		for (int j = start_y, row = 0; j <= end_y; j++, row++) {
 			coo.x = row;
@@ -204,11 +205,11 @@ void colorBoard(ChessBoard obj)
 		}
 	}*/
 
-	GoToXY(BoardInitX, BoardInitY);
+    GoToXY(BoardInitX, BoardInitY);
 }
 
 void colorMainMenuCursor()
-{  // color menu's cursor
+{ // color menu's cursor
     SetConsoleTextAttribute(hConsole, MainMenuLineColor);
     for (int i = MainMenuTextInitY, j = 0; i <= MainMenuTextInitY + 4; i += 2, j++)
     {
@@ -231,35 +232,44 @@ void drawMainMenu()
     system("CLS");
     SetConsoleTextAttribute(hConsole, MainMenuLineColor);
 
-    for (int i = 0; i < blank_row; i++) cout << "\n";
+    for (int i = 0; i < blank_row; i++)
+        cout << "\n";
 
-    for (int i = 0; i < space; i++) cout << "б@";
+    for (int i = 0; i < space; i++)
+        cout << "б@";
 
     cout << "вzвwвwвwвwвwвwвwвwвwвwвwвwв{\n";
-    for (int i = 0; i < space; i++) cout << "б@";
+    for (int i = 0; i < space; i++)
+        cout << "б@";
 
     cout << "вxб@" << mainMenuText[0] << "б@вx\n";
-    for (int i = 0; i < space; i++) cout << "б@";
+    for (int i = 0; i < space; i++)
+        cout << "б@";
 
     cout << "вuвwвwвwвwвwвwвwвwвwвwвwвwвt\n";
-    for (int i = 0; i < space; i++) cout << "б@";
+    for (int i = 0; i < space; i++)
+        cout << "б@";
 
     cout << "вxб@" << mainMenuText[1] << "б@вx\n";
-    for (int i = 0; i < space; i++) cout << "б@";
+    for (int i = 0; i < space; i++)
+        cout << "б@";
 
     cout << "вuвwвwвwвwвwвwвwвwвwвwвwвwвt\n";
-    for (int i = 0; i < space; i++) cout << "б@";
+    for (int i = 0; i < space; i++)
+        cout << "б@";
 
     cout << "вxб@" << mainMenuText[2] << "б@вx\n";
-    for (int i = 0; i < space; i++) cout << "б@";
+    for (int i = 0; i < space; i++)
+        cout << "б@";
 
     cout << "в|вwвwвwвwвwвwвwвwвwвwвwвwв}\n";
-    for (int i = 0; i < blank_row; i++) cout << "\n";
+    for (int i = 0; i < blank_row; i++)
+        cout << "\n";
     colorMainMenuCursor();
 }
 
 void moveMainMenu(int keydown)
-{  // move menu's cursor
+{ // move menu's cursor
     if (keydown == UpArrowKey)
     {
         mainMenuPosition--;
@@ -268,8 +278,10 @@ void moveMainMenu(int keydown)
     {
         mainMenuPosition++;
     }
-    if (mainMenuPosition > 2) mainMenuPosition = 0;
-    if (mainMenuPosition < 0) mainMenuPosition = 2;
+    if (mainMenuPosition > 2)
+        mainMenuPosition = 0;
+    if (mainMenuPosition < 0)
+        mainMenuPosition = 2;
     colorMainMenuCursor();
 }
 
@@ -282,34 +294,46 @@ void printGameFormat()
     {
         cout << line << "\n";
     }*/
-	for (int i = 0; i < 23; i++)
-		cout << Board[i] << "\n";
+    for (int i = 0; i < 23; i++)
+        cout << Board[i] << "\n";
 }
 
 void moveCursor(int keydown)
 {
-	int max_x = BoardCol * 2 + BoardInitX;
-	int max_y = BoardRow * 2 + BoardInitY;
+    // int max_x = BoardCol * 2 + BoardInitX;
+    // int max_y = BoardRow * 2 + BoardInitY;
     if (keydown == UpArrowKey)
     {
-        cursor.y--;
+        // cursor.y--;
+        Game::controll(0, -1);
     }
     else if (keydown == DownArrowKey)
     {
-        cursor.y++;
+        // cursor.y++;
+        Game::controll(0, 1);
     }
     else if (keydown == LeftArrowKey)
     {
-        cursor.x--;
+        // cursor.x--;
+        Game::controll(-1, 0);
     }
     else if (keydown == RightArrowKey)
     {
-        cursor.x++;
+        // cursor.x++;
+        Game::controll(1, 0);
     }
-    if (cursor.x < BoardInitX) cursor.x = max_x - 1;
-    if (cursor.x >= max_x) cursor.x = BoardInitX;
-    if (cursor.y < BoardInitY) cursor.y = max_y - 1;
-    if (cursor.y >= max_y) cursor.y = BoardInitY;
+    if (cursor.x < BoardInitX)
+        // cursor.x = max_x - 1;
+        Game::controll(max_x - 1);
+    if (cursor.x >= max_x)
+        // cursor.x = BoardInitX;
+        Game::controll(BoardInitX);
+    if (cursor.y < BoardInitY)
+        // cursor.y = max_y - 1;
+        Game::controll(max_y - 1);
+    if (cursor.y >= max_y)
+        // cursor.y = BoardInitY;
+        Game::controll(BoardInitY);
     GoToXY(cursor.x + BoardInitX - 1, cursor.y + BoardInitY - 1);
 }
 
@@ -317,8 +341,8 @@ void startNewGame()
 {
     GoToXY(MainMenuTextInitX, MainMenuTextInitY);
     cout << "Game StartбI\n";
-	Game newGame;
-	ChessBoard& board = newGame.getboard();
+    Game newGame;
+    ChessBoard &board = newGame.getboard();
     delay(1000);
     system("cls");
 
@@ -326,7 +350,7 @@ void startNewGame()
     cursor.y = 0;
 
     printGameFormat();
-	colorBoard(board);
+    colorBoard(board);
 
     while (gameRunning)
     {
@@ -334,7 +358,8 @@ void startNewGame()
 
         if (keydown != 0)
         {
-            if (keydown >= LeftArrowKey && keydown <= DownArrowKey) moveCursor(keydown);
+            if (keydown >= LeftArrowKey && keydown <= DownArrowKey)
+                moveCursor(keydown);
         }
     }
 }
@@ -393,19 +418,20 @@ void mainMenuAction()
     drawMainMenu();
 }
 
-void testColor() {
-	for (int i = 1; i <= 255; i++) {
-		SetConsoleTextAttribute(hConsole, i);
-		cout << i << " : weqweqweqwe\n";
-	}
-
+void testColor()
+{
+    for (int i = 1; i <= 255; i++)
+    {
+        SetConsoleTextAttribute(hConsole, i);
+        cout << i << " : weqweqweqwe\n";
+    }
 }
 int main()
 {
     init();
     initCmdWindow();
     drawMainMenu();
-	//testColor();
+    //testColor();
     while (running)
     {
         int keydown = getKey();
