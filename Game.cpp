@@ -19,21 +19,33 @@ Game::Game()
 }
 
 // continue previous game
-// TODO: old record
 // player = last character in file
 // controller's coord = (0, 0)
 Game::Game(const string &fileName)
 {
-	// load history / report / player / board
 	loadFile(fileName);
 	// set controller's coord
 	controller.x = 0;
 	controller.y = 0;
 }
 
-void Game::saveFile(const string &fileName) const
+void Game::saveFile(const string &fileName)
 {
-	ofstream save;
+	ofstream save(fileName, std::ofstream::out);
+	for (int16_t row = 0; row < 10; row++)
+	{
+		for (int16_t col = 0; col < 9; col++)
+		{
+			Coord currLoc;
+			currLoc.x = col;
+			currLoc.y = row;
+			Chess &c = board.getChess(currLoc);
+			save << c.getKind() << " ";
+		}
+		save << endl;
+	}
+	save << player;
+	save.close();
 }
 
 void Game::loadFile(const string &fileName)
@@ -46,9 +58,9 @@ void Game::loadFile(const string &fileName)
 	save.open(fileName);
 	if (save.is_open())
 	{ // uid start at 0
-		for (uint16_t row = 0, uid = 0; row < 10; row++)
+		for (int16_t row = 0, uid = 0; row < 10; row++)
 		{
-			for (uint16_t col = 0; col < 9; col++, uid++)
+			for (int16_t col = 0; col < 9; col++, uid++)
 			{
 				// set data
 				Coord currLoc;
@@ -63,6 +75,7 @@ void Game::loadFile(const string &fileName)
 		// set player
 		save >> player;
 	}
+	save.close();
 }
 
 const bool Game::isCheckmate()
