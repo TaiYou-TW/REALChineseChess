@@ -26,7 +26,7 @@
 #define DownArrowKey 40
 #define EnterKey 13
 
-#define MainMenuTextInitX 55
+#define MainMenuTextInitX 63
 #define MainMenuTextInitY 12
 #define BoardInitX 32
 #define BoardInitY 2
@@ -227,7 +227,7 @@ void colorMainMenuCursor()
 void drawMainMenu()
 {
     int index = mainMenuPosition;
-    int space = 26;
+    int space = 30;
     int blank_row = 11;
 
     system("CLS");
@@ -239,31 +239,31 @@ void drawMainMenu()
     for (int i = 0; i < space; i++)
         cout << "¡@";
 
-    cout << "¢z¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢{\n";
+    cout << "¢z¢w¢w¢w¢w¢w¢{\n";
     for (int i = 0; i < space; i++)
         cout << "¡@";
 
-    cout << "¢x¡@" << mainMenuText[0] << "¡@¢x\n";
+    cout << "¢x " << mainMenuText[0] << " ¢x\n";
     for (int i = 0; i < space; i++)
         cout << "¡@";
 
-    cout << "¢u¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢t\n";
+    cout << "¢u¢w¢w¢w¢w¢w¢t\n";
     for (int i = 0; i < space; i++)
         cout << "¡@";
 
-    cout << "¢x¡@" << mainMenuText[1] << "¡@¢x\n";
+    cout << "¢x " << mainMenuText[1] << " ¢x\n";
     for (int i = 0; i < space; i++)
         cout << "¡@";
 
-    cout << "¢u¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢t\n";
+    cout << "¢u¢w¢w¢w¢w¢w¢t\n";
     for (int i = 0; i < space; i++)
         cout << "¡@";
 
-    cout << "¢x¡@" << mainMenuText[2] << "¡@¢x\n";
+    cout << "¢x " << mainMenuText[2] << " ¢x\n";
     for (int i = 0; i < space; i++)
         cout << "¡@";
 
-    cout << "¢|¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢w¢}\n";
+    cout << "¢|¢w¢w¢w¢w¢w¢}\n";
     for (int i = 0; i < blank_row; i++)
         cout << "\n";
     colorMainMenuCursor();
