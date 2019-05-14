@@ -25,6 +25,7 @@
 #define RightArrowKey 39
 #define DownArrowKey 40
 #define EnterKey 13
+#define EscKey 27
 
 #define MainMenuTextInitX 55
 #define MainMenuTextInitY 12
@@ -42,9 +43,9 @@ const string savePath = "./save";
 const string mainMenuText[3] = {"╢}╖s╣C└╕", "┼ки·жs└╔", "┬ў╢}╣C└╕"};
 //const string BoardText[8] = {"в░в▒в▓в│в┤в╡в╢в╖в╕", "ио░и╢Hдh▒Nдh╢H░иио", "пе", "иЄ", "зL", "м╢", "ио╪Xм█еKл╙еKм█╪Xио", "дEдKдCд╗дне|дTдGд@" };
 const string Board[] = {
-    "∙▌∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙▀",
-    "∙° ∙▌∙∙∙∙∙∙б@╛╘б@кpб@┼уб@е▄б@∙∙∙∙∙∙∙▀б@б@в░б@в▒б@в▓б@в│б@в┤б@в╡б@в╢б@в╖б@в╕б@б@∙▌∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙▀ ∙°",
-    "∙° ∙°                        ∙°б@б@∙▌∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙▀    ∙°                           ∙° ∙°",
+    "∙▌вдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙▀",
+    "∙° ∙▌вдвдвдб@╛╘б@кpб@┼уб@е▄б@вдвдвд∙▀б@б@в░б@в▒б@в▓б@в│б@в┤б@в╡б@в╢б@в╖б@в╕б@б@∙▌вдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙▀ ∙°",
+    "∙° ∙°                        ∙°б@б@∙▌вдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙▀    ∙°                           ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx в@вxб■ вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°    ╜№иьб@    дшб@дU┤╤     ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx б■вxв@ вx   вx   вx    ∙°    ∙°                           ∙° ∙°",
@@ -55,16 +56,16 @@ const string Board[] = {
     "∙° ∙°                        ∙°б@б@∙° вwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвwвrвwвwвw ∙°    ∙°                           ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙°     ╖бкe            ║~м╔       ∙°    ∙°                           ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙° вwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвwвsвwвwвw ∙°    ∙°                           ∙° ∙°",
-    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙р∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙т ∙°",
+    "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙рвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙т ∙°",
     "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx   вx   вx   вx   вx    ∙°    ∙°  Esc ┐я│ц  < ом┤╤  > ┴┘нь ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx в@вxб■ вx   вx   вx    ∙°    ∙°      Enter   ┐яи·┤╤дl     ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙° вwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвwвqвwвwвw ∙°    ∙°                           ∙° ∙°",
     "∙° ∙°                        ∙°б@б@∙°   вx   вx   вx б■вxв@ вx   вx   вx    ∙°    ∙°       дшжV┴ф▒▒ию┤х╝╨      ∙° ∙°",
-    "∙° ∙°                        ∙°б@б@∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙х    ∙°                           ∙° ∙°",
-    "∙° ∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙хб@б@дEб@дKб@дCб@д╗б@днб@е|б@дTб@дGб@д@    ∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙х ∙°",
-    "∙у∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙х"};
+    "∙° ∙°                        ∙°б@б@∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙х    ∙°                           ∙° ∙°",
+    "∙° ∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙хб@б@дEб@дKб@дCб@д╗б@днб@е|б@дTб@дGб@д@    ∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙х ∙°",
+    "∙увдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвдвд∙х"};
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
@@ -286,6 +287,62 @@ void moveMainMenu(int keydown)
     colorMainMenuCursor();
 }
 
+void loadGame()
+{
+    int counter = 0;
+    vector<string> filename;
+    string cmd = "";
+
+    storeSavedFilename(counter, filename);
+
+    if (counter > 0)
+    {
+        while (atoi(cmd.c_str()) < 1 || atoi(cmd.c_str()) > counter)
+        {
+            cout << "╜╨┐щдJ╜s╕╣(┐щдJ 0 ┬ў╢}) : ";
+            cin >> cmd;
+            if (cmd[0] == '0' && cmd.length() == 1)
+            {
+                return;
+            }
+        }
+
+        system("cls");
+        cout << "╕№дJ \"" << filename[atoi(cmd.c_str()) - 1] << "\" дд ...... \n";
+        delay(3000);
+        cout << "иSж│дUд@иBг{";
+        delay(1000);
+        Game save(filename[atoi(cmd.c_str()) - 1]);
+        // TODO: call gaming process
+    }
+    else
+    {
+        cout << "╡Lжs└╔бI";
+        delay(3000);
+        drawMainMenu();
+    }
+}
+
+// TODO: if-else argument
+void drawGameMenu(Game& g)
+{
+    // get system time
+    time_t now = time(0);
+    string fileName = to_string(now);
+
+    // continue
+    return;
+    // save
+    g.saveFile(fileName + ".txt");
+    // load
+    loadGame();
+    // restart
+    
+    // quit
+    g.saveFile(fileName + ".txt");
+    exit(0);
+}
+
 void printGameFormat()
 {
     /*ifstream in;
@@ -377,47 +434,17 @@ void startNewGame()
             {
                 // move the chess
                 Chess &c = board.getChess(select);
-             //   board.moveChess(c, /*another coord*/);
+                // TODO: change basis
+                // board.moveChess(c, /*another coord*/);
                 holdChess = false;
                 // store board's old status
                 newGame.writeHistory(board.getArea());
             }
-        }
-    }
-}
-
-void loadGame()
-{
-    int counter = 0;
-    vector<string> filename;
-    string cmd = "";
-
-    storeSavedFilename(counter, filename);
-
-    if (counter > 0)
-    {
-        while (atoi(cmd.c_str()) < 1 || atoi(cmd.c_str()) > counter)
-        {
-            cout << "╜╨┐щдJ╜s╕╣(┐щдJ 0 ┬ў╢}) : ";
-            cin >> cmd;
-            if (cmd[0] == '0' && cmd.length() == 1)
+            else if(keydown == EscKey)
             {
-                return;
+                drawGameMenu(newGame);
             }
         }
-
-        system("cls");
-        cout << "╕№дJ \"" << filename[atoi(cmd.c_str()) - 1] << "\" дд ...... \n";
-        delay(3000);
-        cout << "иSж│дUд@иBг{";
-        delay(1000);
-        Game save(filename[atoi(cmd.c_str()) - 1]);
-    }
-    else
-    {
-        cout << "╡Lжs└╔бI";
-        delay(3000);
-        drawMainMenu();
     }
 }
 
@@ -453,7 +480,7 @@ int main()
     init();
     initCmdWindow();
     drawMainMenu();
-    //testColor();
+    // testColor();
     while (running)
     {
         int keydown = getKey();
