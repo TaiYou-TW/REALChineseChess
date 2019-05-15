@@ -207,7 +207,7 @@ void Game::writeReport()
 	Coord pre = board.getChess(controller).getPrevCoord(), curr = controller;
 	// define string
 	const static string duplicateofChinese[4] = {"前後", "前中後", "前中後", "前二三後"};
-	const static string kindofChinese = "將士象車馬包足帥仕相?馬炮兵";
+	const static string kindofChinese = "將士象車馬包足帥仕相車馬炮兵";
 	const static string numberChinese[2] = {"１２３４５６７８９", "九八七六五四三二一"};
 	const static string verbofChinese = "平進退";
 	string text;
