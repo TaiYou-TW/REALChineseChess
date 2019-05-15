@@ -596,7 +596,14 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 // set chess on board
 void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &loc)
 {
-	area[loc.y][loc.x] = Chess(uid, kind, loc);
+	if (kind == 0)
+	{
+		area[loc.y][loc.x] = Chess(uid, kind - 1, loc);
+	}
+	else
+	{
+		area[loc.y][loc.x] = Chess(uid, kind, loc);
+	}
 }
 // get chess ref
 Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
