@@ -29,6 +29,8 @@
 #define DownArrowKey 40
 #define EnterKey 13
 #define EscKey 27
+#define OKey 79
+#define PKey 80
 
 #define MainMenuTextInitX 63
 #define MainMenuTextInitY 12
@@ -38,6 +40,7 @@
 
 #define BoardRow 10
 #define BoardCol 9
+
 
 using namespace std;
 namespace fs = std::experimental::filesystem;
@@ -313,6 +316,27 @@ void colorGameMenuCursor()
     GoToXY(0, WindowBottomY);
 }
 
+void showWinning(int num) {
+	int x = 86;
+	int y = 6;
+
+	GoToXY(x, y);
+	if (num == PLAYER_BLACK + 1)
+	{
+		SetConsoleTextAttribute(hConsole, BlackColor);
+		cout << "黑方獲勝";
+	}
+	else if (num == PLAYER_RED + 1)
+	{
+		SetConsoleTextAttribute(hConsole, RedColor);
+		cout << "紅方獲勝";
+	}
+	else
+	{
+		cout << "        ";
+	}
+}
+
 void drawMainMenu()
 {
     int index = mainMenuPosition;
@@ -539,7 +563,9 @@ void drawGameMenu(Game &g)
          << " │\n";
     for (int i = 0; i < space; i++)
         cout << "　";
-
+	cout << "├─────┤\n";
+	for (int i = 0; i < space; i++)
+		cout << "　";
     cout << "│ "
          << "退出遊戲"
          << " │\n";
@@ -731,7 +757,7 @@ void startNewGame()
 						showHint(newGame.playerNow());
 						showHoldHint(-1);
                         showReport(newGame.getReport());
-						showWinning(isCheckmate());
+						showWinning(newGame.isCheckmate());
                     }
                 }
             }

@@ -31,7 +31,7 @@ Game::Game(const string &fileName)
 
 void Game::saveFile(const string &fileName)
 {
-	ofstream save(fileName, std::ofstream::out);
+	ofstream save("./save/" + fileName, std::ofstream::out);
 	for (int16_t row = 0; row < 10; row++)
 	{
 		for (int16_t col = 0; col < 9; col++)
@@ -40,7 +40,10 @@ void Game::saveFile(const string &fileName)
 			currLoc.x = col;
 			currLoc.y = row;
 			Chess &c = board.getChess(currLoc);
-			save << c.getKind() << " ";
+			if (c.getKind() == -1)
+				save << c.getKind() + 1 << " ";
+			else
+				save << c.getKind() << " ";
 		}
 		save << endl;
 	}
