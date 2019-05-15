@@ -138,27 +138,31 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
     MoveWindow(console, 100, 100, width, height, TRUE);
 }
 
-void showReport(vector<string> reports) {
-	const int report_index_x = 20;
-	int size = reports.size();
-	int start_index = (reports.size()) > 18 ? reports.size() - 18 : 0;
-	while (reports.size() > 18)
-		reports.erase(reports.begin());
-	for (int i = 0, j = start_index; i < 18 && j < size; i++, j++) {
-		GoToXY(10, i + 2);
-		SetConsoleTextAttribute(hConsole, InitColor);
-		cout << i << " ";
-		if (start_index % 2 == 1) {
-			SetConsoleTextAttribute(hConsole, BlackColor);
-			//cout << "黑";
-		}
-		else {
-			SetConsoleTextAttribute(hConsole, RedColor);
-			//cout << "紅";
-		}
-		//SetConsoleTextAttribute(hConsole, InitColor);
-		cout << "：" << reports[j];
-	}
+void showReport(vector<string> reports)
+{
+    const int report_index_x = 20;
+    int size = reports.size();
+    int start_index = (reports.size()) > 18 ? reports.size() - 18 : 0;
+    while (reports.size() > 18)
+        reports.erase(reports.begin());
+    for (int i = 0, j = start_index; i < 18 && j < size; i++, j++)
+    {
+        GoToXY(10, i + 2);
+        SetConsoleTextAttribute(hConsole, InitColor);
+        cout << i << " ";
+        if (start_index % 2 == 1)
+        {
+            SetConsoleTextAttribute(hConsole, BlackColor);
+            //cout << "黑";
+        }
+        else
+        {
+            SetConsoleTextAttribute(hConsole, RedColor);
+            //cout << "紅";
+        }
+        //SetConsoleTextAttribute(hConsole, InitColor);
+        cout << "：" << reports[j];
+    }
 }
 
 void drawPrompt(vector<Coord> move, vector<Coord> capture, Coord origin)
@@ -354,10 +358,76 @@ void loadGame()
         system("cls");
         cout << "載入 \"" << filename[atoi(cmd.c_str()) - 1] << "\" 中 ...... \n";
         delay(3000);
-        cout << "沒有下一步ㄌ";
+
+        // call gaming process
+        Game newGame(filename[atoi(cmd.c_str()) - 1]);
+        ChessBoard &board = newGame.getboard();
         delay(1000);
-        Game save(filename[atoi(cmd.c_str()) - 1]);
-        // TODO: call gaming process
+        system("cls");
+
+        cursor.x = 0;
+        cursor.y = 0;
+
+        printGameFormat();
+        colorBoard(board);
+
+        while (gameRunning)
+        {
+            int keydown = getKey();
+            Coord select;
+            if (keydown != 0)
+            {
+                // move the cursor by arrow key
+                if (keydown >= LeftArrowKey && keydown <= DownArrowKey)
+                    moveCursor(keydown);
+
+                else if (keydown == EnterKey && !holdChess)
+                {
+                    int kindCode = board.getChess(cursor).getKind();
+                    if (kindCode != -1) // not null chess
+                    {
+                        if ((newGame.playerNow() == PLAYER_BLACK && kindCode >= 1 && kindCode <= 7) ||
+                            (newGame.playerNow() == PLAYER_RED && kindCode >= 8 && kindCode <= 14))
+                        {
+                            select.x = cursor.x;
+                            select.y = cursor.y;
+                            vector<Coord> temp = newGame.promptMovement(select);
+                            vector<Coord> temp2 = newGame.promptCapture(select);
+                            drawPrompt(temp, temp2, select);
+                            holdChess = true;
+                        }
+                    }
+                }
+                // has chess -> move
+                else if (keydown == EnterKey && holdChess)
+                {
+                    Chess &c = board.getChess(select);
+                    if (select.x == cursor.x && select.y == cursor.y)
+                    {
+                        holdChess = false;
+                        colorBoard(board);
+                        GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
+                    }
+                    else if (board.isMovable(cursor, select, newGame.playerNow()))
+                    {
+                        if (board.moveChess(select, cursor, newGame.playerNow()))
+                        {
+                            holdChess = false;
+                            newGame.writeHistory(board.getArea());
+                            newGame.writeReport(select, cursor);
+                            colorBoard(board);
+                            newGame.switchPlayer();
+                            showReport(newGame.getReport());
+                            GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
+                        }
+                    }
+                }
+                else if (keydown == EscKey)
+                {
+                    drawGameMenu(newGame);
+                }
+            }
+        }
     }
     else
     {
@@ -498,8 +568,8 @@ void startNewGame()
                         newGame.writeReport(select, cursor);
                         colorBoard(board);
                         newGame.switchPlayer();
-						showReport(newGame.getReport());
-						GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
+                        showReport(newGame.getReport());
+                        GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
                     }
                 }
             }
