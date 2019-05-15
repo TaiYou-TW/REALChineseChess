@@ -367,7 +367,7 @@ void drawGameMenu(Game &g)
 void printGameFormat()
 {
     ifstream in;
-    in.open("./Format/init.ya");
+    in.open("./Format/blank.ya");
     string line;
     for (int i = 0; getline(in, line); i++)
     {
