@@ -138,6 +138,26 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
     MoveWindow(console, 100, 100, width, height, TRUE);
 }
 
+void showReport(vector<string> reports) {
+	const int report_index_x = 20;
+	int start_index = reports.size();
+	while (reports.size() > 20)
+		reports.erase(reports.begin());
+	for (int i = reports.size(), j = start_index; i < reports.size(); i++, j++) {
+		GoToXY(20, 20-j);
+		cout << i << " ";
+		if (i % 2 == 0) {
+			SetConsoleTextAttribute(hConsole, BlackColor);
+			cout << "¶Â";
+		}
+		else {
+			SetConsoleTextAttribute(hConsole, RedColor);
+			cout << "¬õ";
+		}
+		cout << reports[i];
+	}
+}
+
 void drawPrompt(vector<Coord> move, vector<Coord> capture, Coord origin)
 {
     int start_index_x = 37;
@@ -475,6 +495,7 @@ void startNewGame()
                         newGame.writeReport(select, cursor);
                         colorBoard(board);
                         newGame.switchPlayer();
+						showReport(newGame.getReport());
                     }
                 }
             }

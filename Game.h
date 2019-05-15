@@ -31,6 +31,7 @@ public:
     void writeReport(Coord,Coord);
     void writeHistory(const BattleArea &oldArea);
     void switchPlayer();
+	BattleReport getReport();
     const uint16_t playerNow() const;
 
     static void controll(const int32_t &xOffset, const int32_t &yOffSet);

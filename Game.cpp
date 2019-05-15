@@ -348,6 +348,10 @@ void Game::switchPlayer()
 	else
 		player = PLAYER_BLACK;
 }
+BattleReport Game::getReport()
+{
+	return report;
+}
 const uint16_t Game::playerNow() const { return player; }
 
 void Game::controll(const int32_t &xOffset, const int32_t &yOffset)
