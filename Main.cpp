@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <chrono>
+#include <stdint.h>
 #include <experimental/filesystem>
 #include <fstream>
 #include <iostream>
@@ -191,7 +192,24 @@ void drawPrompt(vector<Coord> move, vector<Coord> capture, Coord origin)
     GoToXY(4 * origin.x + BoardInitX, 2 * origin.y + BoardInitY);
 }
 
-void colorBoard(ChessBoard obj, const unsigned short player)
+void showHint(unsigned short player) {
+	int x = 87;
+	int y = 4;
+
+	GoToXY(x, y);
+	if (player == PLAYER_BLACK)
+	{
+		SetConsoleTextAttribute(hConsole, BlackColor);
+		cout << "黑色方";
+	}
+	else
+	{
+		SetConsoleTextAttribute(hConsole, RedColor);
+		cout << "紅色方";
+	}
+}
+
+void colorBoard(ChessBoard obj)
 { // color Board
     int start_index_x = 37;
     int end_x = 70;
@@ -373,6 +391,7 @@ void loadGame()
 
         printGameFormat();
         colorBoard(board);
+		showHint(newGame.playerNow());
 
         while (gameRunning)
         {
@@ -420,6 +439,7 @@ void loadGame()
                             newGame.writeReport(select, cursor);
                             colorBoard(board);
                             newGame.switchPlayer();
+							showHint(newGame.playerNow());
                             showReport(newGame.getReport());
                             GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
                         }
@@ -509,6 +529,31 @@ void moveCursor(int keydown)
     GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
 }
 
+void showHoldHint(int kindCode) {
+	int x = 84;
+	int y = 6;
+
+	GoToXY(x, y);
+	SetConsoleTextAttribute(hConsole, InitColor);
+	if (kindCode == -1) {
+		cout << "            ";
+	}
+	else
+	{
+		cout << "您選擇了 ";
+		if (kindCode >= 1 && kindCode <= 8)
+		{
+			SetConsoleTextAttribute(hConsole, BlackColor);
+		}
+		else if (kindCode >= 9 && kindCode <= 14)
+		{
+			SetConsoleTextAttribute(hConsole, RedColor);
+		}
+		for (int i = 2 * (kindCode - 1); i < 2 * kindCode; i++)
+			cout << chessText[i];
+	}
+}
+
 // main gaming process
 void startNewGame()
 {
@@ -524,9 +569,11 @@ void startNewGame()
 
     printGameFormat();
     colorBoard(board);
+	showHint(newGame.playerNow());
 
     while (gameRunning)
     {
+		GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
         int keydown = getKey();
         Coord select;
         if (keydown != 0)
@@ -548,6 +595,7 @@ void startNewGame()
                         vector<Coord> temp = newGame.promptMovement(select);
                         vector<Coord> temp2 = newGame.promptCapture(select);
                         drawPrompt(temp, temp2, select);
+						showHoldHint(kindCode);
                         holdChess = true;
                     }
                 }
@@ -560,7 +608,7 @@ void startNewGame()
                 {
                     holdChess = false;
                     colorBoard(board);
-                    GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
+					showHoldHint(-1);
                 }
                 else if (board.isMovable(cursor, select, newGame.playerNow()))
                 {
@@ -569,10 +617,11 @@ void startNewGame()
                         holdChess = false;
                         newGame.writeHistory(board.getArea());
                         newGame.writeReport(select, cursor);
-                        colorBoard(board, newGame.playerNow());
+						colorBoard(board);
                         newGame.switchPlayer();
+						showHint(newGame.playerNow());
+						showHoldHint(-1);
                         showReport(newGame.getReport());
-                        GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
                     }
                 }
             }
