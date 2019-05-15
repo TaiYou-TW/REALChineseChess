@@ -52,6 +52,24 @@ bool holdChess = false;
 int mainMenuPosition = 0;
 Coord cursor;
 
+void init();
+void GoToXY(int, int);
+void delay(int);
+DWORD getKey();
+void storeSavedFilename(int &, vector<string> &);
+void initCmdWindow(int, int);
+void colorBoard(ChessBoard);
+void colorMainMenuCursor();
+void drawMainMenu();
+void moveMainMenu(int);
+void loadGame();
+void drawGameMenu(Game &);
+void printGameFormat();
+void moveCursor(int);
+void startNewGame();
+void mainMenuAction();
+void testColor();
+
 void init()
 {
     SetConsoleTextAttribute(hConsole, InitColor);
@@ -301,7 +319,7 @@ void loadGame()
 }
 
 // TODO: if-else argument
-void drawGameMenu(Game& g)
+void drawGameMenu(Game &g)
 {
     // get system time
     time_t now = time(0);
@@ -314,7 +332,7 @@ void drawGameMenu(Game& g)
     // load
     loadGame();
     // restart
-    
+
     // quit
     g.saveFile(fileName + ".txt");
     exit(0);
@@ -417,7 +435,7 @@ void startNewGame()
                 // store board's old status
                 newGame.writeHistory(board.getArea());
             }
-            else if(keydown == EscKey)
+            else if (keydown == EscKey)
             {
                 drawGameMenu(newGame);
             }
@@ -452,6 +470,7 @@ void testColor()
         cout << i << " : weqweqweqwe\n";
     }
 }
+
 int main()
 {
     init();
