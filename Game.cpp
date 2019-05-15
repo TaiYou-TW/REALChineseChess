@@ -50,9 +50,6 @@ void Game::saveFile(const string &fileName)
 
 void Game::loadFile(const string &fileName)
 {
-	// history.push_back(<something>);
-	// report.push_back(<something>);
-
 	// load file and set chess
 	ifstream save;
 	save.open(fileName);
@@ -89,7 +86,7 @@ ChessBoard &Game::getboard()
 const bool Game::isCheck()
 {
 	Coord general_coord;
-	//check player_red is been check
+	// check player_red is been check
 	if (player == PLAYER_RED)
 	{
 		for (int i = 3, flag = 0; i <= 5; i++)
@@ -127,7 +124,7 @@ const bool Game::isCheck()
 			}
 		}
 	}
-	//check player_black is been check
+	// check player_black is been check
 	else if (player == PLAYER_BLACK)
 	{
 		for (int i = 3, flag = 0; i <= 5; i++)
@@ -209,11 +206,11 @@ void Game::writeReport()
 	int kind = board.getChess(controller).getKind();
 	Coord pre = board.getChess(controller).getPrevCoord(), curr = controller;
 	// define string
-	const static string duplicateofChinese[4] = {"«e«á", "«e¤¤«á", "«e¤G¤T«á",
-												 "«e¤G¤T¥|«á"};
-	const static string kindofChinese = "±N¤h¶H¨®°¨¥]¨ò«Ó¥K¬Û¨®ØX¬¶§L";
-	const static string numberChinese[2] = {"¢°¢±¢²¢³¢´¢µ¢¶¢·¢¸", "¤E¤K¤C¤»¤­¥|¤T¤G¤@"};
-	const static string verbofChinese = "¥­¶i°h";
+	const static string duplicateofChinese[4] = {"ï¿½eï¿½ï¿½", "ï¿½eï¿½ï¿½ï¿½ï¿½", "ï¿½eï¿½Gï¿½Tï¿½ï¿½",
+												 "ï¿½eï¿½Gï¿½Tï¿½|ï¿½ï¿½"};
+	const static string kindofChinese = "ï¿½Nï¿½hï¿½Hï¿½ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ó¥Kï¿½Û¨ï¿½ï¿½Xï¿½ï¿½ï¿½L";
+	const static string numberChinese[2] = {"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½Eï¿½Kï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½|ï¿½Tï¿½Gï¿½@"};
+	const static string verbofChinese = "ï¿½ï¿½ï¿½iï¿½h";
 	string text;
 	// Set the first word
 	text = kindofChinese[(kind - 1) * 2] + kindofChinese[(kind - 1) * 2 + 1];
@@ -260,7 +257,7 @@ void Game::writeReport()
 	}
 	if (player == 1)
 	{
-		text = "¬õ¡G" + text;
+		text = "ï¿½ï¿½ï¿½G" + text;
 		if (pre.x == curr.x)
 		{
 			if (curr.y < pre.y)
@@ -300,7 +297,7 @@ void Game::writeReport()
 	}
 	else
 	{
-		text = "¶Â¡G" + text;
+		text = "ï¿½Â¡G" + text;
 		if (pre.x == curr.x)
 		{
 			if (curr.y < pre.y)
@@ -338,7 +335,7 @@ void Game::writeReport()
 			}
 		}
 	}
-	//write report
+	// write report
 	if (board.getTurn() > report.size())
 	{
 		report.push_back(text);
@@ -352,7 +349,7 @@ void Game::writeHistory(const BattleArea &oldArea)
 {
 	history.push_back(oldArea);
 }
-void Game::setPlayer(const uint16_t& p){ player = p; }
+void Game::setPlayer(const uint16_t &p) { player = p; }
 const uint16_t Game::playerNow() const { return player; }
 
 void Game::controll(const int32_t &xOffset, const int32_t &yOffset)
