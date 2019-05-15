@@ -130,16 +130,16 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 			{
 				if (abs(after.x - before.x) == 2 && abs(after.y - before.y) == 1)
 				{
-					if (before.x < after.x&&before.x != 8)
+					if (before.x < after.x && before.x != 8)
 					{
-						if (area[before.y][before.x+1].getKind() == -1)
+						if (area[before.y][before.x + 1].getKind() == -1)
 						{
 							return true;
 						}
 					}
-					else if (before.x > after.x&&before.x != 0)
+					else if (before.x > after.x && before.x != 0)
 					{
-						if (area[before.y ][before.x-1].getKind() == -1)
+						if (area[before.y][before.x - 1].getKind() == -1)
 						{
 							return true;
 						}
@@ -147,16 +147,16 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 				}
 				else if (abs(after.x - before.x) == 1 && abs(after.y - before.y) == 2)
 				{
-					if (before.y < after.y&&before.y != 9)
+					if (before.y < after.y && before.y != 9)
 					{
-						if (area[before.y+1][before.x].getKind() == -1)
+						if (area[before.y + 1][before.x].getKind() == -1)
 						{
 							return true;
 						}
 					}
-					else if (before.y > after.y&&before.y != 0)
+					else if (before.y > after.y && before.y != 0)
 					{
-						if (area[before.y-1][before.x].getKind() == -1)
+						if (area[before.y - 1][before.x].getKind() == -1)
 						{
 							return true;
 						}
@@ -418,16 +418,16 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 			{
 				if (abs(after.x - before.x) == 2 && abs(after.y - before.y) == 1)
 				{
-					if (before.x < after.x&&before.x != 8)
+					if (before.x < after.x && before.x != 8)
 					{
-						if (area[before.y][before.x+1].getKind() == -1)
+						if (area[before.y][before.x + 1].getKind() == -1)
 						{
 							return true;
 						}
 					}
-					else if (before.x > after.x&&before.x != 0)
+					else if (before.x > after.x && before.x != 0)
 					{
-						if (area[before.y ][before.x-1].getKind() == -1)
+						if (area[before.y][before.x - 1].getKind() == -1)
 						{
 							return true;
 						}
@@ -435,16 +435,16 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 				}
 				else if (abs(after.x - before.x) == 1 && abs(after.y - before.y) == 2)
 				{
-					if (before.y < after.y&&before.y != 9)
+					if (before.y < after.y && before.y != 9)
 					{
-						if (area[before.y+1][before.x].getKind() == -1)
+						if (area[before.y + 1][before.x].getKind() == -1)
 						{
 							return true;
 						}
 					}
-					else if (before.y > after.y&&before.y != 0)
+					else if (before.y > after.y && before.y != 0)
 					{
-						if (area[before.y-1][before.x].getKind() == -1)
+						if (area[before.y - 1][before.x].getKind() == -1)
 						{
 							return true;
 						}
@@ -606,19 +606,19 @@ void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &
 }
 // get chess ref
 Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
-bool ChessBoard::moveChess(Chess &c, const Coord &cursorLoc, const int player)
+bool ChessBoard::moveChess(const Coord &currLoc, const Coord &cursorLoc, const int player)
 {
-	if (isMovable(cursorLoc, c.getCurrCoord(), player))
+	if (isMovable(cursorLoc, currLoc, player))
 	{
 		// replace the chess on cursor loc
-		area[cursorLoc.y][cursorLoc.x] = c;
+		area[cursorLoc.y][cursorLoc.x] = area[currLoc.y][currLoc.x];
 
 		// clear current loc
 		Chess cleaner;
-		area[c.getCurrCoord().y][c.getCurrCoord().x] = cleaner;
+		area[currLoc.y][currLoc.x] = cleaner;
 
 		// update the loc
-		c.moveCoord(cursorLoc);
+		// c.moveCoord(cursorLoc);
 		return true;
 	}
 	return false;
