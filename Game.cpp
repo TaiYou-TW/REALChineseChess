@@ -206,11 +206,10 @@ void Game::writeReport()
 	int kind = board.getChess(controller).getKind();
 	Coord pre = board.getChess(controller).getPrevCoord(), curr = controller;
 	// define string
-	const static string duplicateofChinese[4] = {"ï¿½eï¿½ï¿½", "ï¿½eï¿½ï¿½ï¿½ï¿½", "ï¿½eï¿½Gï¿½Tï¿½ï¿½",
-												 "ï¿½eï¿½Gï¿½Tï¿½|ï¿½ï¿½"};
-	const static string kindofChinese = "ï¿½Nï¿½hï¿½Hï¿½ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½Ó¥Kï¿½Û¨ï¿½ï¿½Xï¿½ï¿½ï¿½L";
-	const static string numberChinese[2] = {"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½Eï¿½Kï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½|ï¿½Tï¿½Gï¿½@"};
-	const static string verbofChinese = "ï¿½ï¿½ï¿½iï¿½h";
+	const static string duplicateofChinese[4] = {"«e«á", "«e¤¤«á", "«e¤¤«á", "«e¤G¤T«á"};
+	const static string kindofChinese = "±N¤h¶H¨®°¨¥]¨¬«Ó¥K¬Û?°¨¬¶§L";
+	const static string numberChinese[2] = {"¢°¢±¢²¢³¢´¢µ¢¶¢·¢¸", "¤E¤K¤C¤»¤­¥|¤T¤G¤@"};
+	const static string verbofChinese = "¥­¶i°h";
 	string text;
 	// Set the first word
 	text = kindofChinese[(kind - 1) * 2] + kindofChinese[(kind - 1) * 2 + 1];
@@ -257,7 +256,7 @@ void Game::writeReport()
 	}
 	if (player == 1)
 	{
-		text = "ï¿½ï¿½ï¿½G" + text;
+		text = "¬õ¡G" + text;
 		if (pre.x == curr.x)
 		{
 			if (curr.y < pre.y)
@@ -297,7 +296,7 @@ void Game::writeReport()
 	}
 	else
 	{
-		text = "ï¿½Â¡G" + text;
+		text = "¶Â¡G" + text;
 		if (pre.x == curr.x)
 		{
 			if (curr.y < pre.y)
