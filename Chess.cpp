@@ -19,18 +19,16 @@ Chess::Chess()
 // uid = uid
 // kindCode = kind
 // currCoord = loc
-// TODO: prevCoord = <read from file>
+// prevCoord = (0 ,0)
 Chess::Chess(const int32_t &uid, const int32_t &kind, const Coord &loc)
 {
     uniqueID = uid;
     kindCode = kind;
     currCoord.x = loc.x;
     currCoord.y = loc.y;
-    // TODO: prevCoord
-    // prevCoord.x = <somthing>;
-    // prevCoord.y = <somthing>;
+    prevCoord.x = 0;
+    prevCoord.y = 0;
 }
-
 
 void Chess::moveCoord(const Coord &cursorLoc)
 {
@@ -41,8 +39,6 @@ void Chess::moveCoord(const Coord &cursorLoc)
     currCoord.x = cursorLoc.x;
     currCoord.y = cursorLoc.y;
 }
-
-
 
 const int32_t Chess::getID() const { return uniqueID; }
 const int32_t Chess::getKind() const { return kindCode; }
