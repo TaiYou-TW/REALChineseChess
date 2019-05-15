@@ -28,7 +28,7 @@ public:
     vector<Coord> promptMovement(Coord);
     vector<Coord> promptCapture(Coord);
 
-    void writeReport();
+    void writeReport(Coord,Coord);
     void writeHistory(const BattleArea &oldArea);
     void switchPlayer();
     const uint16_t playerNow() const;

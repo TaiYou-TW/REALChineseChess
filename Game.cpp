@@ -201,10 +201,10 @@ vector<Coord> Game::promptMovement(const Coord curr)
 	return Movement;
 }
 
-void Game::writeReport()
+void Game::writeReport(Coord pre,Coord controller)
 {
 	int kind = board.getChess(controller).getKind();
-	Coord pre = board.getChess(controller).getPrevCoord(), curr = controller;
+	Coord curr = controller;
 	// define string
 	const static string duplicateofChinese[4] = {"前後", "前中後", "前中後", "前二三後"};
 	const static string kindofChinese = "將士象車馬包足帥仕相車馬炮兵";
