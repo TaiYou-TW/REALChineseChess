@@ -52,7 +52,7 @@ void Game::loadFile(const string &fileName)
 {
 	// load file and set chess
 	ifstream save;
-	save.open("./save/" + fileName);
+	save.open(fileName);
 	if (save.is_open())
 	{ // uid start at 0
 		for (int16_t row = 0, uid = 0; row < 10; row++)
@@ -207,12 +207,13 @@ void Game::writeReport(Coord pre, Coord controller)
 	Coord curr = controller;
 	// define string
 	const static string duplicateofChinese[4] = { "前後", "前中後", "前中後", "前二三後" };
-	const static string kindofChinese = "將士象車馬包足帥仕相車馬炮兵";
+	string kindofChinese = "將士象車馬包足帥仕相車馬炮兵"s;
 	const static string numberChinese[2] = { "１２３４５６７８９", "九八七六五四三二一" };
 	const static string verbofChinese = "平進退";
-	string text;
+	string text = ""s;
 	// Set the first word
-	text = kindofChinese[(kind - 1) * 2] + kindofChinese[(kind - 1) * 2 + 1];
+	text += kindofChinese[(kind - 1) * 2];
+	text += kindofChinese[(kind - 1) * 2 + 1];
 	// check the how many same kind of chess on the same x INDEX [0](how many) [1]this
 	// chess index [2] the bool of
 	short duplicate[3] = { 0, 0, 0 };
@@ -222,36 +223,37 @@ void Game::writeReport(Coord pre, Coord controller)
 		Coord checkCoord;
 		checkCoord.x = pre.x;
 		checkCoord.y = i;
-		const Chess &checkChess = board.getChess(checkCoord);
-		if (checkChess.getKind() == kind)
-		{
-			duplicate[0] += 1;
-		}
-		else if (pre.x == checkCoord.x && pre.y == checkCoord.y)
+		const Chess& checkChess = board.getChess(checkCoord);
+		if (pre.x == checkCoord.x && pre.y == checkCoord.y)
 		{
 			duplicate[0] += 1;
 			duplicate[1] = duplicate[0];
+		}
+		else if (checkChess.getKind() == kind && (controller.x != checkCoord.x && controller.y != checkCoord.y))
+		{
+			duplicate[0] += 1;
 		}
 		if (duplicate[0] > 1 && i == 9)
 		{
 			duplicate[2] = 1;
 			if (player == 1)
 			{
-				text += duplicateofChinese[duplicate[0] - 2][(duplicate[1] - 1) * 2] +
-					duplicateofChinese[duplicate[0] - 2][(duplicate[1] - 1) * 2 + 1];
+				text += duplicateofChinese[duplicate[0] - 2][(duplicate[1] - 1) * 2];
+				text += duplicateofChinese[duplicate[0] - 2][(duplicate[1] - 1) * 2 + 1];
 			}
 			else
 			{
 				text += duplicateofChinese[duplicate[0] - 2]
-					[(duplicate[0] - duplicate[1]) * 2] +
-					duplicateofChinese[duplicate[0] - 2]
+					[(duplicate[0] - duplicate[1]) * 2];
+
+				text += duplicateofChinese[duplicate[0] - 2]
 					[(duplicate[0] - duplicate[1]) * 2 + 1];
 			}
 		}
 		else if (i == 9)
 		{
-			text += numberChinese[player][(pre.x) * 2] +
-				numberChinese[player][(pre.x) * 2 + 1];
+			text += numberChinese[player][(pre.x) * 2];
+			text += numberChinese[player][(pre.x) * 2 + 1];
 		}
 	}
 	if (player == 1)
@@ -261,36 +263,41 @@ void Game::writeReport(Coord pre, Coord controller)
 		{
 			if (curr.y < pre.y)
 			{
-				text += verbofChinese[2] + verbofChinese[3] +
-					numberChinese[1][(pre.y - curr.y - 1) * 2] +
-					numberChinese[1][(pre.y - curr.y - 1) * 2 + 1];
+				text += verbofChinese[2];
+				text += verbofChinese[3];
+				text += numberChinese[1][numberChinese[1].size() - (pre.y - curr.y - 1) * 2 - 2];
+				text += numberChinese[1][numberChinese[1].size() - (pre.y - curr.y - 1) * 2 - 1];
 			}
 			else
 			{
-				text += verbofChinese[4] + verbofChinese[5] +
-					numberChinese[1][(curr.y - pre.y - 1) * 2] +
-					numberChinese[1][(curr.y - pre.y - 1) * 2 + 1];
+				text += verbofChinese[4];
+				text += verbofChinese[5];
+				text += numberChinese[1][numberChinese[1].size() - (curr.y - pre.y - 1) * 2 - 2];
+				text += numberChinese[1][numberChinese[1].size() - (curr.y - pre.y - 1) * 2 - 1];
 			}
 		}
 		else if (pre.y == curr.y)
 		{
-			text += verbofChinese[0] + verbofChinese[1] +
-				numberChinese[1][(curr.x) * 2] +
-				numberChinese[1][(curr.x) * 2 + 1];
+			text += verbofChinese[0];
+			text += verbofChinese[1];
+			text += numberChinese[1][(curr.x) * 2];
+			text += numberChinese[1][(curr.x) * 2 + 1];
 		}
 		else
 		{
 			if (curr.y < pre.y)
 			{
-				text += verbofChinese[2] + verbofChinese[3] +
-					numberChinese[1][(curr.x) * 2] +
-					numberChinese[1][(curr.x) * 2 + 1];
+				text += verbofChinese[2];
+				text += verbofChinese[3];
+				text += numberChinese[1][(curr.x) * 2];
+				text += numberChinese[1][(curr.x) * 2 + 1];
 			}
 			else
 			{
-				text += verbofChinese[4] + verbofChinese[5] +
-					numberChinese[1][(curr.x) * 2] +
-					numberChinese[1][(curr.x) * 2 + 1];
+				text += verbofChinese[4];
+				text += verbofChinese[5];
+				text += numberChinese[1][(curr.x) * 2];
+				text += numberChinese[1][(curr.x) * 2 + 1];
 			}
 		}
 	}
@@ -301,42 +308,47 @@ void Game::writeReport(Coord pre, Coord controller)
 		{
 			if (curr.y < pre.y)
 			{
-				text += verbofChinese[4] + verbofChinese[5] +
-					numberChinese[0][(pre.y - curr.y - 1) * 2] +
-					numberChinese[0][(pre.y - curr.y - 1) * 2 + 1];
+				text += verbofChinese[4];
+				text += verbofChinese[5];
+				text += numberChinese[0][(pre.y - curr.y - 1) * 2];
+				text += numberChinese[0][(pre.y - curr.y - 1) * 2 + 1];
 			}
 			else
 			{
-				text += verbofChinese[2] + verbofChinese[3] +
-					numberChinese[0][(curr.y - pre.y - 1) * 2] +
-					numberChinese[0][(curr.y - pre.y - 1) * 2 + 1];
+				text += verbofChinese[2];
+				text += verbofChinese[3];
+				text += numberChinese[0][(curr.y - pre.y - 1) * 2];
+				text += numberChinese[0][(curr.y - pre.y - 1) * 2 + 1];
 			}
 		}
 		else if (pre.y == curr.y)
 		{
-			text += verbofChinese[0] + verbofChinese[1] +
-				numberChinese[0][(curr.x) * 2] +
-				numberChinese[0][(curr.x) * 2 + 1];
+			text += verbofChinese[0];
+			text += verbofChinese[1];
+			text += numberChinese[0][(curr.x) * 2];
+			text += numberChinese[0][(curr.x) * 2 + 1];
 		}
 		else
 		{
 			if (curr.y < pre.y)
 			{
-				text += verbofChinese[4] + verbofChinese[5] +
-					numberChinese[0][(curr.x) * 2] +
-					numberChinese[0][(curr.x) * 2 + 1];
+				text += verbofChinese[4];
+				text += verbofChinese[5];
+				text += numberChinese[0][(curr.x) * 2];
+				text += numberChinese[0][(curr.x) * 2 + 1];
 			}
 			else
 			{
-				text += verbofChinese[2] + verbofChinese[3] +
-					numberChinese[0][(curr.x) * 2] +
-					numberChinese[0][(curr.x) * 2 + 1];
-			}
-		}
-	}
-	// write report
-	report.push_back(text);
+				text += verbofChinese[2];
+				text += verbofChinese[3];text += numberChinese[0][(curr.x) * 2];
+        text += numberChinese[0][(curr.x) * 2 + 1];
+      }
+    }
+  }
+  // write report
+  report.push_back(text);
 }
+
 void Game::writeHistory(const BattleArea &oldArea)
 {
 	history.push_back(oldArea);

@@ -70,6 +70,7 @@ void colorMainMenuCursor();
 void drawMainMenu();
 void moveMainMenu(int);
 void loadGame();
+void showHoldHint(int);
 void drawGameMenu(Game &);
 void printGameFormat();
 void moveCursor(int);
@@ -147,25 +148,25 @@ void showReport(vector<string> reports)
 {
     const int report_index_x = 20;
     int size = reports.size();
-    int start_index = (reports.size()) > 18 ? reports.size() - 18 : 0;
-    while (reports.size() > 18)
-        reports.erase(reports.begin());
-    for (int i = 0, j = start_index; i < 18 && j < size; i++, j++)
+    int start_index = (reports.size()) > 19 ? reports.size() - 19 : 0;
+    //while (reports.size() > 19)
+     //   reports.erase(reports.begin());
+    for (int i = 0, j = start_index; i < 19 && j < size; i++, j++)
     {
         GoToXY(10, i + 2);
         SetConsoleTextAttribute(hConsole, InitColor);
-        cout << i << " ";
-        if (start_index % 2 == 1)
+        cout << j+1 << " ";
+        if (j % 2 == 1)
         {
             SetConsoleTextAttribute(hConsole, BlackColor);
-            //cout << "¶Â";
+            cout << "¶Â";
         }
         else
         {
             SetConsoleTextAttribute(hConsole, RedColor);
-            //cout << "¬õ";
+            cout << "¬õ";
         }
-        //SetConsoleTextAttribute(hConsole, InitColor);
+        SetConsoleTextAttribute(hConsole, InitColor);
         cout << "¡G" << reports[j];
     }
 }
@@ -411,79 +412,80 @@ void loadGame()
 
         system("cls");
         cout << "¸ü¤J \"" << filename[atoi(cmd.c_str()) - 1] << "\" ¤¤ ...... \n";
-        delay(3000);
+        delay(1000);
 
         // call gaming process
         Game newGame(filename[atoi(cmd.c_str()) - 1]);
         ChessBoard &board = newGame.getboard();
-        delay(1000);
         system("cls");
 
         cursor.x = 0;
         cursor.y = 0;
 
-        printGameFormat();
-        colorBoard(board);
+		printGameFormat();
+		colorBoard(board);
 		showHint(newGame.playerNow());
 
-        while (gameRunning)
-        {
-            int keydown = getKey();
-            Coord select;
-            if (keydown != 0)
-            {
-                // move the cursor by arrow key
-                if (keydown >= LeftArrowKey && keydown <= DownArrowKey)
-                    moveCursor(keydown);
+		while (gameRunning)
+		{
+			GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
+			int keydown = getKey();
+			Coord select;
+			if (keydown != 0)
+			{
+				// move the cursor by arrow key
+				if (keydown >= LeftArrowKey && keydown <= DownArrowKey)
+					moveCursor(keydown);
 
-                else if (keydown == EnterKey && !holdChess)
-                {
-                    int kindCode = board.getChess(cursor).getKind();
-                    if (kindCode != -1) // not null chess
-                    {
-                        if ((newGame.playerNow() == PLAYER_BLACK && kindCode >= 1 && kindCode <= 7) ||
-                            (newGame.playerNow() == PLAYER_RED && kindCode >= 8 && kindCode <= 14))
-                        {
-                            select.x = cursor.x;
-                            select.y = cursor.y;
-                            vector<Coord> temp = newGame.promptMovement(select);
-                            vector<Coord> temp2 = newGame.promptCapture(select);
-                            drawPrompt(temp, temp2, select);
-                            holdChess = true;
-                        }
-                    }
-                }
-                // has chess -> move
-                else if (keydown == EnterKey && holdChess)
-                {
-                    Chess &c = board.getChess(select);
-                    if (select.x == cursor.x && select.y == cursor.y)
-                    {
-                        holdChess = false;
-                        colorBoard(board);
-                        GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
-                    }
-                    else if (board.isMovable(cursor, select, newGame.playerNow()))
-                    {
-                        if (board.moveChess(select, cursor, newGame.playerNow()))
-                        {
-                            holdChess = false;
-                            newGame.writeHistory(board.getArea());
-                            newGame.writeReport(select, cursor);
-                            colorBoard(board);
-                            newGame.switchPlayer();
+				else if (keydown == EnterKey && !holdChess)
+				{
+					int kindCode = board.getChess(cursor).getKind();
+					if (kindCode != -1) // not null chess
+					{
+						if ((newGame.playerNow() == PLAYER_BLACK && kindCode >= 1 && kindCode <= 7) ||
+							(newGame.playerNow() == PLAYER_RED && kindCode >= 8 && kindCode <= 14))
+						{
+							select.x = cursor.x;
+							select.y = cursor.y;
+							vector<Coord> temp = newGame.promptMovement(select);
+							vector<Coord> temp2 = newGame.promptCapture(select);
+							drawPrompt(temp, temp2, select);
+							showHoldHint(kindCode);
+							holdChess = true;
+						}
+					}
+				}
+				// has chess -> move
+				else if (keydown == EnterKey && holdChess)
+				{
+					Chess& c = board.getChess(select);
+					if (select.x == cursor.x && select.y == cursor.y)
+					{
+						holdChess = false;
+						colorBoard(board);
+						showHoldHint(-1);
+					}
+					else if (board.isMovable(cursor, select, newGame.playerNow()))
+					{
+						if (board.moveChess(select, cursor, newGame.playerNow()))
+						{
+							holdChess = false;
+							newGame.writeHistory(board.getArea());
+							newGame.writeReport(select, cursor);
+							colorBoard(board);
+							newGame.switchPlayer();
 							showHint(newGame.playerNow());
-                            showReport(newGame.getReport());
-                            GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
-                        }
-                    }
-                }
-                else if (keydown == EscKey)
-                {
-                    drawGameMenu(newGame);
-                }
-            }
-        }
+							showHoldHint(-1);
+							showReport(newGame.getReport());
+						}
+					}
+				}
+				else if (keydown == EscKey)
+				{
+					drawGameMenu(newGame);
+				}
+			}
+		}
     }
     else
     {
@@ -666,7 +668,7 @@ void startNewGame()
 {
     GoToXY(MainMenuTextInitX, MainMenuTextInitY);
     cout << "Game Start¡I\n";
-    Game newGame("Initial.txt");
+    Game newGame("./save/Initial.txt");
     ChessBoard &board = newGame.getboard();
     delay(1000);
     system("cls");
