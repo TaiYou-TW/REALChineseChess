@@ -199,7 +199,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 					{
 						if (before.x < after.x)
 						{
-							for (Coord i = before; i.y < after.x; i.x++)
+							for (Coord i = before; i.x < after.x; i.x++)
 							{
 								if (area[i.y][i.x].getKind() != -1 && i.x != before.x)
 								{
@@ -487,7 +487,7 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 					{
 						if (before.x < after.x)
 						{
-							for (Coord i = before; i.y < after.x; i.x++)
+							for (Coord i = before; i.x < after.x; i.x++)
 							{
 								if (area[i.y][i.x].getKind() != -1 && i.x != before.x)
 								{
