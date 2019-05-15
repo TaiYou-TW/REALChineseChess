@@ -140,21 +140,24 @@ void initCmdWindow(int width = CmdWidth, int height = CmdHeight)
 
 void showReport(vector<string> reports) {
 	const int report_index_x = 20;
-	int start_index = reports.size();
-	while (reports.size() > 20)
+	int size = reports.size();
+	int start_index = (reports.size()) > 18 ? reports.size() - 18 : 0;
+	while (reports.size() > 18)
 		reports.erase(reports.begin());
-	for (int i = reports.size(), j = start_index; i < reports.size(); i++, j++) {
-		GoToXY(20, 20-j);
+	for (int i = 0, j = start_index; i < 18 && j < size; i++, j++) {
+		GoToXY(10, i + 2);
+		SetConsoleTextAttribute(hConsole, InitColor);
 		cout << i << " ";
-		if (i % 2 == 0) {
+		if (start_index % 2 == 1) {
 			SetConsoleTextAttribute(hConsole, BlackColor);
-			cout << "¶Â";
+			//cout << "¶Â";
 		}
 		else {
 			SetConsoleTextAttribute(hConsole, RedColor);
-			cout << "¬õ";
+			//cout << "¬õ";
 		}
-		cout << reports[i];
+		//SetConsoleTextAttribute(hConsole, InitColor);
+		cout << "¡G" << reports[j];
 	}
 }
 
@@ -496,6 +499,7 @@ void startNewGame()
                         colorBoard(board);
                         newGame.switchPlayer();
 						showReport(newGame.getReport());
+						GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
                     }
                 }
             }
