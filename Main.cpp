@@ -42,6 +42,7 @@ using namespace std;
 namespace fs = std::experimental::filesystem;
 
 const string savePath = "./save";
+const string chessText = "將士象車馬包卒帥仕相車傌炮兵";
 const string mainMenuText[3] = { "開新遊戲", "讀取存檔", "離開遊戲" };
 //const string BoardText[8] = {"１２３４５６７８９", "車馬象士將士象馬車", "砲", "卒", "兵", "炮", "車傌相仕帥仕相傌車", "九八七六五四三二一" };
 string* Board = new string[23];
@@ -195,8 +196,16 @@ void colorBoard(ChessBoard obj)
 			if (i % 2 == 1)
 				SetConsoleTextAttribute(hConsole, BoardColor);
 
-			for (int k = j; k < j + 2; k++)
-				cout << Board[i][k];
+			if (kindCode != -1 && i % 2 == 0)
+			{
+				for (int k = 2 * (kindCode - 1); k < 2 * kindCode; k++)
+					cout << chessText[k];
+			}
+			else
+			{
+				for (int k = j; k < j + 2; k++)
+					cout << Board[i][k];
+			}
 
 			SetConsoleTextAttribute(hConsole, BoardColor);
 			for (int k = j + 2; k < j + 4 && k <= end_x; k++)
@@ -448,6 +457,7 @@ void startNewGame()
 				Chess& c = board.getChess(select);
 				if (select.x == cursor.x && select.y == cursor.y) {
 					holdChess = false;
+					newGame.switchPlayer();
 					// updateBoard
 				}
 				else if (board.isMovable(cursor, select, newGame.playerNow()) )
@@ -458,7 +468,7 @@ void startNewGame()
 						newGame.writeHistory(board.getArea());
 						colorBoard(board);
 						newGame.switchPlayer();
-						// updateBoard
+						//updateBoard(board);
 					}
 				}
 			}
