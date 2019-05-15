@@ -187,7 +187,7 @@ void drawPrompt(vector<Coord> move, vector<Coord> capture, Coord origin)
     GoToXY(4 * origin.x + BoardInitX, 2 * origin.y + BoardInitY);
 }
 
-void colorBoard(ChessBoard obj)
+void colorBoard(ChessBoard obj, const unsigned short player)
 { // color Board
     int start_index_x = 37;
     int end_x = 70;
@@ -196,6 +196,9 @@ void colorBoard(ChessBoard obj)
 
     Coord coo;
     int kindCode;
+
+	//GoToXY()
+	SetConsoleTextAttribute(hConsole, BoardNumColor);
 
     GoToXY(BoardInitX - 1, BoardInitY - 1);
     SetConsoleTextAttribute(hConsole, BoardNumColor);
@@ -496,7 +499,7 @@ void startNewGame()
                         holdChess = false;
                         newGame.writeHistory(board.getArea());
                         newGame.writeReport(select, cursor);
-                        colorBoard(board);
+                        colorBoard(board, newGame.playerNow());
                         newGame.switchPlayer();
 						showReport(newGame.getReport());
 						GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
