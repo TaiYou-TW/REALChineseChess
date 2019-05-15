@@ -74,10 +74,56 @@ void Game::loadFile(const string &fileName)
 	}
 	save.close();
 }
-
-const bool Game::isCheckmate()
+//0 no thing 1 black win 2 red win
+const int Game::isCheckmate()
 {
-	return false;
+	int black = 0, red = 0;
+	for (int i = 3, other = 0, die = 0; i <= 5; i++)
+	{
+		for (int j = 0; j <= 2; j++)
+		{
+			Coord temp;
+			temp.x = i;
+			temp.y = j;
+			if (board.getChess(temp).getKind() == 1)
+			{
+				black = 1;
+			}
+			if (board.getChess(temp).getKind() == 8)
+			{
+				red = 1;
+			}
+		}
+	}
+	for (int i = 3, other = 0, die = 0; i <= 5; i++)
+	{
+		for (int j = 7; j <= 9; j++)
+		{
+			Coord temp;
+			temp.x = i;
+			temp.y = j;
+			if (board.getChess(temp).getKind() == 8)
+			{
+				red = 1;
+			}
+			if (board.getChess(temp).getKind() == 1)
+			{
+				black = 1;
+			}
+		}
+	}
+	if (red == 1 && black == 1)
+	{
+		return 0;
+	}
+	else if (red == 1 && black == 0)
+	{
+		return 2;
+	}
+	else if (red == 0 && black == 1)
+	{
+		return 1;
+	}
 }
 ChessBoard &Game::getboard()
 {

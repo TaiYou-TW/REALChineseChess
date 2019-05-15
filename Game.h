@@ -22,7 +22,7 @@ public:
 
     ChessBoard &getboard();
 
-    const bool isCheckmate();
+    const int isCheckmate();
     const bool isCheck();
 
     vector<Coord> promptMovement(Coord);

@@ -731,6 +731,7 @@ void startNewGame()
 						showHint(newGame.playerNow());
 						showHoldHint(-1);
                         showReport(newGame.getReport());
+						showWinning(isCheckmate());
                     }
                 }
             }
