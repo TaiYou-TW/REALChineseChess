@@ -593,26 +593,6 @@ bool ChessBoard::isMovable(const Coord &aftercod, const Coord &beforecod, const 
 	}
 	return false;
 }
-// get chess ref
-Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
-bool ChessBoard::moveChess(Chess &c, const Coord &cursorLoc)
-{
-	if (isMovable(cursorLoc, c.getCurrCoord(), turn / 2))
-	{
-		// replace the chess on cursor loc
-		area[cursorLoc.y][cursorLoc.x] = c;
-
-		// clear current loc
-		Chess cleaner;
-		area[c.getCurrCoord().y][c.getCurrCoord().x] = cleaner;
-
-		// update the loc
-		c.moveCoord(cursorLoc);
-		return true;
-	}
-	return false;
-}
-// set chess on board
 void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &loc)
 {
 	if (kind == 0)
