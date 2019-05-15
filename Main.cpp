@@ -45,6 +45,7 @@ namespace fs = std::experimental::filesystem;
 const string savePath = "./save";
 const string chessText = "將士象車馬包卒帥仕相車傌炮兵";
 const string mainMenuText[3] = {"開新遊戲", "讀取存檔", "離開遊戲"};
+const string gameMenuText[4] = {"繼續遊戲", "保存遊戲", "重新開始", "退出遊戲"};
 //const string BoardText[8] = {"１２３４５６７８９", "車馬象士將士象馬車", "砲", "卒", "兵", "炮", "車傌相仕帥仕相傌車", "九八七六五四三二一" };
 string *Board = new string[23];
 
@@ -52,8 +53,10 @@ HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
 bool running = true;
 bool gameRunning = true;
+bool gameMenuOpen = false;
 bool holdChess = false;
 int mainMenuPosition = 0;
+int gameMenuPosition = 0;
 Coord cursor;
 
 void init();
@@ -72,6 +75,7 @@ void printGameFormat();
 void moveCursor(int);
 void startNewGame();
 void mainMenuAction();
+void gameMenuAction(Game &);
 void testColor();
 
 void init()
@@ -293,6 +297,20 @@ void colorMainMenuCursor()
     cout << mainMenuText[mainMenuPosition];
     GoToXY(0, WindowBottomY);
 }
+void colorGameMenuCursor()
+{ // color game menu's cursor
+    SetConsoleTextAttribute(hConsole, MainMenuLineColor);
+    for (int i = MainMenuTextInitY, j = 0; i <= MainMenuTextInitY + 4; i += 2, j++)
+    {
+        GoToXY(MainMenuTextInitX, i);
+        cout << gameMenuText[j];
+    }
+
+    SetConsoleTextAttribute(hConsole, MainMenuChoosenColor);
+    GoToXY(MainMenuTextInitX, MainMenuTextInitY + mainMenuPosition * 2);
+    cout << gameMenuText[gameMenuPosition];
+    GoToXY(0, WindowBottomY);
+}
 
 void drawMainMenu()
 {
@@ -338,7 +356,6 @@ void drawMainMenu()
         cout << "\n";
     colorMainMenuCursor();
 }
-
 void moveMainMenu(int keydown)
 { // move menu's cursor
     if (keydown == UpArrowKey)
@@ -354,6 +371,22 @@ void moveMainMenu(int keydown)
     if (mainMenuPosition < 0)
         mainMenuPosition = 2;
     colorMainMenuCursor();
+}
+void moveGameMenu(int keydown)
+{ // move game menu's cursor
+    if (keydown == UpArrowKey)
+    {
+        gameMenuPosition--;
+    }
+    if (keydown == DownArrowKey)
+    {
+        gameMenuPosition++;
+    }
+    if (gameMenuPosition > 3)
+        gameMenuPosition = 0;
+    if (gameMenuPosition < 0)
+        gameMenuPosition = 3;
+    colorGameMenuCursor();
 }
 
 void loadGame()
@@ -460,24 +493,98 @@ void loadGame()
     }
 }
 
-// TODO: if-else argument
 void drawGameMenu(Game &g)
 {
+    int index = gameMenuPosition;
+    int space = 30;
+    int blank_row = 11;
+
+    system("CLS");
+    SetConsoleTextAttribute(hConsole, MainMenuLineColor);
+
+    for (int i = 0; i < blank_row; i++)
+        cout << "\n";
+
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "┌─────┐\n";
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "│ "
+         << "繼續遊戲"
+         << " │\n";
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "├─────┤\n";
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "│ "
+         << "保存遊戲"
+         << " │\n";
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "├─────┤\n";
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "│ "
+         << "重新開始"
+         << " │\n";
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "│ "
+         << "退出遊戲"
+         << " │\n";
+    for (int i = 0; i < space; i++)
+        cout << "　";
+
+    cout << "└─────┘\n";
+    for (int i = 0; i < blank_row; i++)
+        cout << "\n";
+    colorGameMenuCursor();
+
+    gameMenuOpen = true;
+    while (gameMenuOpen)
+    {
+        int keydown = getKey();
+
+        if (keydown != 0)
+        {
+            if (keydown == UpArrowKey || keydown == DownArrowKey)
+            {
+                moveGameMenu(keydown);
+            }
+            else if (keydown == EnterKey)
+            {
+                gameMenuAction(g);
+            }
+        }
+    }
+}
+
+void gameMenuAction(Game &g)
+{
+    gameMenuOpen = false;
     // get system time
     time_t now = time(0);
     string fileName = to_string(now);
-
-    // continue
-    return;
-    // save
-    g.saveFile(fileName + ".txt");
-    // load
-    loadGame();
-    // restart
-
-    // quit
-    g.saveFile(fileName + ".txt");
-    exit(0);
+    if (gameMenuPosition == 0) // continue
+        return;
+    else if (gameMenuPosition == 1) // save
+        g.saveFile(fileName + ".txt");
+    else if (gameMenuPosition == 2) // restart
+        startNewGame();
+    else if (gameMenuPosition == 3) // quit
+    {
+        g.saveFile(fileName + ".txt");
+        exit(0);
+    }
 }
 
 void printGameFormat()
