@@ -6,7 +6,7 @@ ChessBoard::ChessBoard()
 {
 	area.clear();
 	Chess emptyChess;
-	area = BattleArea(9, vector<Chess>(10, emptyChess));
+	area = BattleArea(10, vector<Chess>(9, emptyChess));
 	turn = 0;
 }
 // TODO: horse / elephant / Soldier 's rules and all rule

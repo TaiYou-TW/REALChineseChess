@@ -331,7 +331,6 @@ void loadGame()
 }
 
 // TODO: if-else argument
-<<<<<<< HEAD
 void drawGameMenu(Game & g)
 {
 	// get system time
@@ -403,7 +402,6 @@ void moveCursor(int keydown)
 // main gaming process
 void startNewGame()
 {
-<<<<<<< HEAD
 	GoToXY(MainMenuTextInitX, MainMenuTextInitY);
 	cout << "Game Start¡I\n";
 	Game newGame("Initial.txt");

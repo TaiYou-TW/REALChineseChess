@@ -52,7 +52,7 @@ void Game::loadFile(const string &fileName)
 {
 	// load file and set chess
 	ifstream save;
-	save.open(fileName);
+	save.open("./save/" + fileName);
 	if (save.is_open())
 	{ // uid start at 0
 		for (int16_t row = 0, uid = 0; row < 10; row++)
@@ -348,7 +348,13 @@ void Game::writeHistory(const BattleArea &oldArea)
 {
 	history.push_back(oldArea);
 }
-void Game::setPlayer(const uint16_t &p) { player = p; }
+void Game::switchPlayer() 
+{ 
+	if (player == PLAYER_BLACK)
+		player = PLAYER_RED;
+	else
+		player = PLAYER_BLACK;
+}
 const uint16_t Game::playerNow() const { return player; }
 
 void Game::controll(const int32_t &xOffset, const int32_t &yOffset)
@@ -368,4 +374,9 @@ void Game::controll(const int32_t &specifed)
 	// let controller.y be the specifed value(max_y - 1 or BoardInitY)
 	if (specifed == max_y - 1 || specifed == 2)
 		controller.y = specifed;
+}
+
+Coord Game::getController()
+{
+	return controller;
 }
