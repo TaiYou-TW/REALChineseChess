@@ -606,9 +606,9 @@ void ChessBoard::setChess(const int32_t &uid, const int32_t &kind, const Coord &
 }
 // get chess ref
 Chess &ChessBoard::getChess(const Coord &loc) { return area[loc.y][loc.x]; }
-bool ChessBoard::moveChess(Chess &c, const Coord &cursorLoc)
+bool ChessBoard::moveChess(Chess &c, const Coord &cursorLoc, const int player)
 {
-	if (isMovable(cursorLoc, c.getCurrCoord(), turn / 2))
+	if (isMovable(cursorLoc, c.getCurrCoord(), player))
 	{
 		// replace the chess on cursor loc
 		area[cursorLoc.y][cursorLoc.x] = c;

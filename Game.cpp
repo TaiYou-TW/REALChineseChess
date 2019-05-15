@@ -335,14 +335,7 @@ void Game::writeReport(Coord pre,Coord controller)
 		}
 	}
 	// write report
-	if (board.getTurn() > report.size())
-	{
-		report.push_back(text);
-	}
-	else
-	{
-		report[board.getTurn() - 1] = text;
-	}
+	report.push_back(text);	
 }
 void Game::writeHistory(const BattleArea &oldArea)
 {

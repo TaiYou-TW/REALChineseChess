@@ -146,16 +146,18 @@ void drawPrompt(vector<Coord> move, vector<Coord> capture, Coord origin) {
 
 	Coord coo;
 
+	SetConsoleTextAttribute(hConsole, movableColor);
 	for (vector<Coord>::iterator it = move.begin(); it != move.end(); ++it)
 	{
 		GoToXY(BoardInitX - 1 + it->x * 4, BoardInitY + it->y * 2);
-		cout << "°Ê";
+		cout << "  ";
 	}
 
+	SetConsoleTextAttribute(hConsole, eibleColor);
 	for (vector<Coord>::iterator it = capture.begin(); it != capture.end(); ++it)
 	{
 		GoToXY(BoardInitX - 1 + it->x * 4, BoardInitY + it->y * 2);
-		cout << "¦Y";
+		cout << "  ";
 	}
 
 	GoToXY(4 * origin.x + BoardInitX, 2 * origin.y + BoardInitY);
@@ -457,18 +459,18 @@ void startNewGame()
 				Chess& c = board.getChess(select);
 				if (select.x == cursor.x && select.y == cursor.y) {
 					holdChess = false;
-					newGame.switchPlayer();
-					// updateBoard
+					colorBoard(board);
+					GoToXY(4 * cursor.x + BoardInitX, 2 * cursor.y + BoardInitY);
 				}
 				else if (board.isMovable(cursor, select, newGame.playerNow()) )
 				{
-					if (board.moveChess(c, cursor))
+					if (board.moveChess(c, cursor, newGame.playerNow()))
 					{
 						holdChess = false;
 						newGame.writeHistory(board.getArea());
+						newGame.writeReport(select, cursor);
 						colorBoard(board);
 						newGame.switchPlayer();
-						//updateBoard(board);
 					}
 				}
 			}
