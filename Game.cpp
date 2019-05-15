@@ -256,7 +256,7 @@ void Game::writeReport()
 	}
 	if (player == 1)
 	{
-		text = "¬õ¡G" + text;
+		//text = "¬õ¡G" + text;
 		if (pre.x == curr.x)
 		{
 			if (curr.y < pre.y)
@@ -296,7 +296,7 @@ void Game::writeReport()
 	}
 	else
 	{
-		text = "¶Â¡G" + text;
+		//text = "¶Â¡G" + text;
 		if (pre.x == curr.x)
 		{
 			if (curr.y < pre.y)
