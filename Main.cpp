@@ -587,6 +587,7 @@ void drawGameMenu(Game &g)
             if (keydown == UpArrowKey || keydown == DownArrowKey)
             {
                 moveGameMenu(keydown);
+				colorGameMenuCursor();
             }
             else if (keydown == EnterKey)
             {

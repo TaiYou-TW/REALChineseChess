@@ -34,6 +34,9 @@ public:
 	BattleReport getReport();
     const uint16_t playerNow() const;
 
+	void undo();
+	void redo();
+
     static void controll(const int32_t &xOffset, const int32_t &yOffSet);
     static void controll(const int32_t &specified);
 	static Coord getController();

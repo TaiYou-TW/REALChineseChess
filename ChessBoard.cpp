@@ -630,12 +630,19 @@ void ChessBoard::setTurn(const int32_t &t) { turn = t; }
 const int32_t ChessBoard::getTurn() const { return turn; }
 
 // get board's status
-const BattleArea &ChessBoard::getArea() const
+ BattleArea &ChessBoard::getArea()
 {
 	return area;
 }
 
 // draw
-void ChessBoard::drawBoard(const BattleArea &board) const {}
-void ChessBoard::undo() {}
-void ChessBoard::redo() {}
+ChessBoard& ChessBoard::operator=(const ChessBoard& cb) 
+{
+	for (int16_t row = 0; row < 10; row++) {
+		for (int16_t col = 0; col < 9; col++) {
+			area[row][col] = cb.area[row][col];
+		}
+	}
+	turn = cb.turn;
+	return *this;
+}

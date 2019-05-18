@@ -21,11 +21,9 @@ public:
     void setTurn(const int32_t &t);
     const int32_t getTurn() const;
 
-    const BattleArea &getArea() const;
+    BattleArea &getArea();
 
-    void drawBoard(const BattleArea &board) const;
-    void undo();
-    void redo();
+    ChessBoard& operator=(const ChessBoard&);
 
 private:
     // A "2 dim vector" that store chess
